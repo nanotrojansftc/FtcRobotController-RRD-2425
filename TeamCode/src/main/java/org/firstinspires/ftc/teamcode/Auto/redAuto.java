@@ -45,7 +45,7 @@ public abstract class redAuto extends LinearOpMode {
             DcMotorD = hardwareMap.get(DcMotorEx.class, "Drive4");
         }
     }
-
+    Pose2d myPose = new Pose2d(10, -5, Math.toRadians(90));
     public void runOpMode() {
         waitForStart();
         // instantiate your MecanumDrive at a particular pose.
@@ -63,6 +63,7 @@ public abstract class redAuto extends LinearOpMode {
                 .splineTo(new Vector2d(-28.65, -56.12), Math.toRadians(-47.85))
                 .splineTo(new Vector2d(9.98, -47.32), Math.toRadians(12.83))
                 .build();
-
+        if(gamepad1.a){
+        }
     }
 }

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name="opMode", group="Linear OpMode")
 public class opMode extends LinearOpMode {
@@ -11,15 +12,15 @@ public class opMode extends LinearOpMode {
         DcMotor DcMotorB = hardwareMap.get(DcMotor.class, "Drive2");
         DcMotor DcMotorC = hardwareMap.get(DcMotor.class, "Drive3");
         DcMotor DcMotorD = hardwareMap.get(DcMotor.class, "Drive4");
-
+        DcMotorC.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
         while (opModeIsActive()){
             if (gamepad1.left_stick_y != 0){
-                DcMotorA.setPower(-gamepad1.left_stick_y);
-                DcMotorB.setPower(-gamepad1.left_stick_y);
-                DcMotorC.setPower(-gamepad1.left_stick_y);
-                DcMotorD.setPower(-gamepad1.left_stick_y);
+                DcMotorA.setPower(gamepad1.left_stick_y);
+                DcMotorB.setPower(gamepad1.left_stick_y);
+                DcMotorC.setPower(gamepad1.left_stick_y);
+                DcMotorD.setPower(gamepad1.left_stick_y);
             }
             if (gamepad1.left_stick_y == 0) {
                 DcMotorA.setPower(0);
