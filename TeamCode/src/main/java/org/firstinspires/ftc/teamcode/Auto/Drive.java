@@ -8,7 +8,6 @@ public abstract class Drive extends LinearOpMode {
     DcMotor DcMotorB = hardwareMap.get(DcMotor.class, "Drive2");
     DcMotor DcMotorC = hardwareMap.get(DcMotor.class, "Drive3");
     DcMotor DcMotorD = hardwareMap.get(DcMotor.class, "Drive4");
-    DcMotorC.setDirection(DcMotorSimple.Direction.REVERSE);
 
     public void driveTiles (int input) {
 
