@@ -14,6 +14,7 @@ public class opMode extends LinearOpMode {
         DcMotor DcMotorD = hardwareMap.get(DcMotor.class, "Drive4");
         DcMotorC.setDirection(DcMotorSimple.Direction.REVERSE);
 
+
         waitForStart();
         while (opModeIsActive()){
             if (gamepad1.left_stick_y != 0){
