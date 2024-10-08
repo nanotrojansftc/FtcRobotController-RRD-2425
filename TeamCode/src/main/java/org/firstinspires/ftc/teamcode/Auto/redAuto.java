@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 public abstract class redAuto extends LinearOpMode {
 
     public void runOpMode() {
+    Drive.driveTiles(5);
 
     }
 

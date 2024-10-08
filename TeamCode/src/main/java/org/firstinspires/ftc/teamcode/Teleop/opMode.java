@@ -13,10 +13,16 @@ public class opMode extends LinearOpMode {
         DcMotor DcMotorC = hardwareMap.get(DcMotor.class, "Drive3");
         DcMotor DcMotorD = hardwareMap.get(DcMotor.class, "Drive4");
         DcMotorC.setDirection(DcMotorSimple.Direction.REVERSE);
+        DcMotorD.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         waitForStart();
         while (opModeIsActive()){
+            telemetry.addData("Motor A Pos:", DcMotorA.getCurrentPosition());
+            telemetry.addData("Motor B Pos:", DcMotorB.getCurrentPosition());
+            telemetry.addData("Motor C Pos:", DcMotorC.getCurrentPosition());
+            telemetry.addData("Motor D Pos:", DcMotorD.getCurrentPosition());
+
             if (gamepad1.left_stick_y != 0){
                 DcMotorA.setPower(gamepad1.left_stick_y);
                 DcMotorB.setPower(gamepad1.left_stick_y);
@@ -41,7 +47,7 @@ public class opMode extends LinearOpMode {
                 DcMotorC.setPower(0);
                 DcMotorD.setPower(0);
             }
-
+            telemetry.update();
         }
     }
 }
