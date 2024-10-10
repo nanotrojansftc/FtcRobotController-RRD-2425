@@ -35,10 +35,10 @@ public abstract class Drive extends LinearOpMode {
         DcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         DcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         DcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotorA.setTargetPosition(1);
-        DcMotorB.setTargetPosition(1);
-        DcMotorC.setTargetPosition(1);
-        DcMotorD.setTargetPosition(1);
+        DcMotorA.setTargetPosition(-993 * input);
+        DcMotorB.setTargetPosition(-1044 * input);
+        DcMotorC.setTargetPosition(-1037 * input);
+        DcMotorD.setTargetPosition(-1061 * input);
 
 
 
