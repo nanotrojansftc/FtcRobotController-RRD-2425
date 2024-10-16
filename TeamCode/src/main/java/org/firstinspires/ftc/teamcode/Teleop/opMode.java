@@ -57,6 +57,12 @@ public class opMode extends LinearOpMode {
                 DcMotorC.setPower(-1);
                 DcMotorD.setPower(1);
             }
+           if (gamepad1.a){
+               DcMotorA.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+               DcMotorB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+               DcMotorC.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+               DcMotorD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+           }
             telemetry.update();
         }
     }

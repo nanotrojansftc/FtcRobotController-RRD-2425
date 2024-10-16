@@ -27,10 +27,9 @@ public abstract class Drive extends LinearOpMode {
         DcMotorB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         DcMotorC.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         DcMotorD.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //Servo gripServo = hardwareMap.get(Servo.class, "S0");
     }
 
-    public static void driveTiles(int input) {
+    public static void driveTiles(int Tiles) {
         DcMotorA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         DcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         DcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -39,10 +38,28 @@ public abstract class Drive extends LinearOpMode {
         DcMotorB.setPower(1);
         DcMotorC.setPower(1);
         DcMotorD.setPower(1);
-        DcMotorA.setTargetPosition(-993 * input);
-        DcMotorB.setTargetPosition(-1044 * input);
-        DcMotorC.setTargetPosition(-1037 * input);
-        DcMotorD.setTargetPosition(-1061 * input);
+        DcMotorA.setTargetPosition(-993 * Tiles);
+        DcMotorB.setTargetPosition(-1044 * Tiles);
+        DcMotorC.setTargetPosition(-1037 * Tiles);
+        DcMotorD.setTargetPosition(-1061 * Tiles);
+
+
+
+    }
+
+    public static void rotateDegrees(int Deg) {
+        DcMotorA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        DcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        DcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        DcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        DcMotorA.setPower(1);
+        DcMotorB.setPower(1);
+        DcMotorC.setPower(1);
+        DcMotorD.setPower(1);
+        DcMotorA.setTargetPosition(-993 * Deg);
+        DcMotorB.setTargetPosition(-1044 *Deg);
+        DcMotorC.setTargetPosition(-1037 *Deg);
+        DcMotorD.setTargetPosition(-1061 *Deg);
 
 
 

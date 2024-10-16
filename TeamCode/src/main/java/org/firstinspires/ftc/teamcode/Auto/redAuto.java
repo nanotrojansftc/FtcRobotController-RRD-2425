@@ -18,7 +18,7 @@ public abstract class redAuto extends LinearOpMode {
     @Override
 
     public void runOpMode() {
-    Drive.driveTiles(5);
+    Drive.driveTiles(1);
 
 
     }
