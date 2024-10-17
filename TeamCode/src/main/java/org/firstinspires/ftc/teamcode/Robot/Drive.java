@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.Robot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -29,38 +29,35 @@ public abstract class Drive extends LinearOpMode {
         DcMotorD.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public static void driveTiles(int Tiles) {
-        DcMotorA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotorA.setPower(1);
-        DcMotorB.setPower(1);
-        DcMotorC.setPower(1);
-        DcMotorD.setPower(1);
-        DcMotorA.setTargetPosition(-993 * Tiles);
-        DcMotorB.setTargetPosition(-1044 * Tiles);
-        DcMotorC.setTargetPosition(-1037 * Tiles);
-        DcMotorD.setTargetPosition(-1061 * Tiles);
-
-
+   public static void driveTiles(int Tiles) {
+       DcMotorA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       DcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       DcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       DcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       DcMotorA.setPower(1);
+       DcMotorB.setPower(1);
+       DcMotorC.setPower(1);
+       DcMotorD.setPower(1);
+       DcMotorA.setTargetPosition(-993 * Tiles);
+       DcMotorB.setTargetPosition(-1044 * Tiles);
+       DcMotorC.setTargetPosition(-1037 * Tiles);
+       DcMotorD.setTargetPosition(-1061 * Tiles);
 
     }
 
-    public static void rotateDegrees(int Deg) {
-        DcMotorA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotorA.setPower(1);
-        DcMotorB.setPower(1);
-        DcMotorC.setPower(1);
-        DcMotorD.setPower(1);
-        DcMotorA.setTargetPosition(23 * Deg);
-        DcMotorB.setTargetPosition(18 *Deg);
-        DcMotorC.setTargetPosition(-20 *Deg);
-        DcMotorD.setTargetPosition(-20 *Deg);
-
+   public static void rotateDegrees(int Deg) {
+       DcMotorA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       DcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       DcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       DcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       DcMotorA.setPower(1);
+       DcMotorB.setPower(1);
+       DcMotorC.setPower(1);
+       DcMotorD.setPower(1);
+       DcMotorA.setTargetPosition(23 * Deg);
+       DcMotorB.setTargetPosition(18 *Deg);
+       DcMotorC.setTargetPosition(-20 *Deg);
+       DcMotorD.setTargetPosition(-20 *Deg);
 
 
     }
