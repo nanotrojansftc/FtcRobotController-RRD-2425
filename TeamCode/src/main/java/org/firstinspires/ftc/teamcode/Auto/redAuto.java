@@ -18,7 +18,13 @@ public abstract class redAuto extends LinearOpMode {
     @Override
 
     public void runOpMode() {
-    Drive.driveTiles(1);
+        Drive.init(hardwareMap);
+
+        if(opModeIsActive()){
+            Drive.driveTiles(1);
+            Drive.rotateDegrees(45);
+
+        }
 
 
     }

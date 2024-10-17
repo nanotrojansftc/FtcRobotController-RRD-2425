@@ -62,6 +62,10 @@ public class opMode extends LinearOpMode {
                DcMotorB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                DcMotorC.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                DcMotorD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+               DcMotorA.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+               DcMotorB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+               DcMotorC.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+               DcMotorD.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
            }
             telemetry.update();
         }

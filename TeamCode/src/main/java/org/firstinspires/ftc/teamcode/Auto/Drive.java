@@ -5,13 +5,13 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public abstract class Drive extends LinearOpMode {
-    HardwareMap hMap = null;
+    static HardwareMap hMap = null;
     static DcMotor DcMotorA = null;
     static DcMotor DcMotorB = null;
     static DcMotor DcMotorC = null;
     static DcMotor DcMotorD = null;
 
-    public void init(HardwareMap hardwareMap){
+    public static void init(HardwareMap hardwareMap){
         hMap = hardwareMap;
 
         DcMotorA = hMap.get(DcMotor.class, "Drive1");
@@ -56,10 +56,10 @@ public abstract class Drive extends LinearOpMode {
         DcMotorB.setPower(1);
         DcMotorC.setPower(1);
         DcMotorD.setPower(1);
-        DcMotorA.setTargetPosition(-993 * Deg);
-        DcMotorB.setTargetPosition(-1044 *Deg);
-        DcMotorC.setTargetPosition(-1037 *Deg);
-        DcMotorD.setTargetPosition(-1061 *Deg);
+        DcMotorA.setTargetPosition(23 * Deg);
+        DcMotorB.setTargetPosition(18 *Deg);
+        DcMotorC.setTargetPosition(-20 *Deg);
+        DcMotorD.setTargetPosition(-20 *Deg);
 
 
 
