@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp(name="opMode", group="Linear OpMode")
 public class opMode extends LinearOpMode {
     public void runOpMode() {
-        DcMotor DcMotorA = hardwareMap.get(DcMotor.class, "Drive1");
-        DcMotor DcMotorB = hardwareMap.get(DcMotor.class, "Drive2");
-        DcMotor DcMotorC = hardwareMap.get(DcMotor.class, "Drive3");
-        DcMotor DcMotorD = hardwareMap.get(DcMotor.class, "Drive4");
+        DcMotor DcMotorA = hardwareMap.get(DcMotor.class, "leftFront");
+        DcMotor DcMotorB = hardwareMap.get(DcMotor.class, "leftBack");
+        DcMotor DcMotorC = hardwareMap.get(DcMotor.class, "rightBack");
+        DcMotor DcMotorD = hardwareMap.get(DcMotor.class, "rightFront");
         DcMotorC.setDirection(DcMotorSimple.Direction.REVERSE);
         DcMotorD.setDirection(DcMotorSimple.Direction.REVERSE);
 
