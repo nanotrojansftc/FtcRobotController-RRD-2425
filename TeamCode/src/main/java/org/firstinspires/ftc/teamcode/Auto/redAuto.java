@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Robot.Drive;
 @Autonomous(name="redAuto", group="Autonomous")
-// Don't edit!!!!!!!!!!!!!!!!!!!!!!
+// Don't edit!!!!!!!!!!!!!!!!!!!!!
 public  class redAuto extends LinearOpMode {
     Drive drive = new Drive(hardwareMap);
 
