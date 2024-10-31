@@ -12,18 +12,30 @@ import org.firstinspires.ftc.teamcode.Robot.Drive;
 @Autonomous(name="redAuto", group="Autonomous")
 // Don't edit!!!!!!!!!!!!!!!!!!!!!
 public  class redAuto extends LinearOpMode {
-    Drive drive = new Drive(hardwareMap);
 
     @Override
     public void runOpMode() {
 
             waitForStart();
+        Drive drive = new Drive(hardwareMap);
 
-            if (opModeIsActive()){
+        while (opModeIsActive() && !isStopRequested()){
 
                 drive.driveTiles(1);
+                drive.setRotateDegrees(90);
+                drive.driveTiles(1);
                 drive.setRotateDegrees(45);
-            }
+                drive.driveTiles(1);
+                drive.setRotateDegrees(-45);
+                drive.driveTiles(6);
+                drive.driveTiles(-1);
+
+
+
+                telemetry.addLine(drive.gatherMotorPos());
+                telemetry.update();
+
+        }
 
 
 
