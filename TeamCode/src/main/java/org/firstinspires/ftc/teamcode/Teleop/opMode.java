@@ -8,13 +8,21 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name="opMode", group="Linear OpMode")
 public class opMode extends LinearOpMode {
+    static final int LEFT_EXTENDER_ENDSTOP = 1;
+    static final int RIGHT_EXTENDER_ENDSTOP = 1;
+    //Jesus recommended it and said it would work
+   static final float EXTENDER_SCALING = 1.0f/3;
     public void runOpMode() {
         DcMotor leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         DcMotor leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         DcMotor rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         DcMotor rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+        DcMotor leftExtender = hardwareMap.get(DcMotor.class, "leftExtender");
+        DcMotor rightExtender = hardwareMap.get(DcMotor.class, "rightExtender");
+
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
         waitForStart();
@@ -53,16 +61,25 @@ public class opMode extends LinearOpMode {
                 rightBack.setPower(-1);
                 rightFront.setPower(1);
             }
-           if (gamepad1.a){
-               leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-               leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-               rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-               rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-               leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-               leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-               rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-               rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+           if(gamepad2.left_stick_y != 0){
+               if(leftExtender.getCurrentPosition() > LEFT_EXTENDER_ENDSTOP){
+                   leftExtender.setPower(0);
+               }
+               else{
+                   leftExtender.setPower(gamepad2.left_stick_y * EXTENDER_SCALING);
+               }
+
+               if(rightExtender.getCurrentPosition() > RIGHT_EXTENDER_ENDSTOP){
+                   rightExtender.setPower(0);
+               }
+               else{
+                   rightExtender.setPower(gamepad2.left_stick_y * EXTENDER_SCALING);
+               }
+
+
            }
+
+
             telemetry.addData("leftFront Pos:", leftFront.getCurrentPosition());
             telemetry.addData("leftBack Pos:", leftBack.getCurrentPosition());
             telemetry.addData("rightBack Pos:", rightBack.getCurrentPosition());
