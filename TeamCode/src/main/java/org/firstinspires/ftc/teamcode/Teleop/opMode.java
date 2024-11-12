@@ -53,6 +53,7 @@ public class opMode extends LinearOpMode {
                 rightBack.setPower(1);
                 rightFront.setPower(-1);
             }
+
             if (gamepad1.dpad_right) {
                 leftFront.setPower(-1);
                 leftBack.setPower(1);
