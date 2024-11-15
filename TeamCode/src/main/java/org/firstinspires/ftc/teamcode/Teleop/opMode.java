@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="opMode", group="Linear OpMode")
 public class opMode extends LinearOpMode {
-    static final int LEFT_EXTENDER_ENDSTOP = 2228;
-    static final int RIGHT_EXTENDER_ENDSTOP = 2052;
+    static final int LEFT_EXTENDER_ENDSTOP = 1695;
+    static final int RIGHT_EXTENDER_ENDSTOP = 1695;
     //Jesus recommended it and said it would work
    static final double EXTENDER_SCALING = 1.0/3;
    static final double WRIST_SCALING_DEGREES = 1.0/300;
@@ -64,18 +64,15 @@ public class opMode extends LinearOpMode {
 
             {
                 double powerDifferential =
-                    Math.min(1,
-                            Math.max(0,
-                                    (
-                                            leftExtender.getCurrentPosition()/ LEFT_EXTENDER_ENDSTOP -
-                                            rightExtender.getCurrentPosition()/ RIGHT_EXTENDER_ENDSTOP
-                                    ) / 2 ));
+                        (
+                                leftExtender.getCurrentPosition()/ LEFT_EXTENDER_ENDSTOP - rightExtender.getCurrentPosition()/ RIGHT_EXTENDER_ENDSTOP
+                        ) / 2 * 10;
 
                 //1 if going out, -1 if going in
                 int direction = gamepad2.left_stick_y < 0 ? 1 : -1;
 
-                leftExtender.setPower((-gamepad2.left_stick_y - direction * powerDifferential) * EXTENDER_SCALING);
-                rightExtender.setPower((-gamepad2.left_stick_y + direction * powerDifferential) * EXTENDER_SCALING);
+                leftExtender.setPower(Clamp((-gamepad2.left_stick_y - direction * powerDifferential) * EXTENDER_SCALING));
+                rightExtender.setPower(Clamp((-gamepad2.left_stick_y + direction * powerDifferential) * EXTENDER_SCALING));
             }
             // To set the wrist servo A is down, B is forward
             {
@@ -85,6 +82,10 @@ public class opMode extends LinearOpMode {
                 if (gamepad2.b) {
                     wristServo.setPosition(90.0 * WRIST_SCALING_DEGREES);
                 }
+            }
+            // Gripper controls Y is open, X is close
+            {
+                //if ()
             }
             // To reset all encoders on the bot
             if (gamepad2.start){
@@ -106,6 +107,9 @@ public class opMode extends LinearOpMode {
             telemetry.addData("Right stick Y: ", gamepad2.right_stick_y);
             telemetry.update();
         }
+    }
+    static double Clamp(double value){
+        return Math.min(1,Math.max(0, value));
     }
 }
 
