@@ -69,10 +69,10 @@ public class opMode extends LinearOpMode {
                         ) / 2 * 10;
 
                 //1 if going out, -1 if going in
-                int direction = gamepad2.left_stick_y < 0 ? 1 : -1;
+                int direction = gamepad2.left_stick_y > 0 ? 1 : -1;
 
-                leftExtender.setPower(Clamp((-gamepad2.left_stick_y - direction * powerDifferential) * EXTENDER_SCALING));
-                rightExtender.setPower(Clamp((-gamepad2.left_stick_y + direction * powerDifferential) * EXTENDER_SCALING));
+                leftExtender.setPower(Clamp((-gamepad2.left_stick_y - direction * powerDifferential)));
+                rightExtender.setPower(Clamp((-gamepad2.left_stick_y + direction * powerDifferential)));
             }
             // To set the wrist servo A is down, B is forward
             {
@@ -85,7 +85,12 @@ public class opMode extends LinearOpMode {
             }
             // Gripper controls Y is open, X is close
             {
-                //if ()
+                if (gamepad2.y){
+                    gripperServo.setPosition(45 * GRIPPER_SCALING_DEGREES);
+                }
+                if (gamepad2.x){
+                    gripperServo.setPosition(15 * GRIPPER_SCALING_DEGREES);
+                }
             }
             // To reset all encoders on the bot
             if (gamepad2.start){
@@ -109,7 +114,7 @@ public class opMode extends LinearOpMode {
         }
     }
     static double Clamp(double value){
-        return Math.min(1,Math.max(0, value));
+        return Math.min(1,Math.max(-1, value));
     }
 }
 
