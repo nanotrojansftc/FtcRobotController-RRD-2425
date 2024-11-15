@@ -20,6 +20,8 @@ public class opMode extends LinearOpMode {
         DcMotor leftExtender = hardwareMap.get(DcMotor.class, "leftExtender");
         DcMotor rightExtender = hardwareMap.get(DcMotor.class, "rightExtender");
         Servo wristServo = hardwareMap.get(Servo.class, "wristServo");
+        Servo gripperServo = hardwareMap.get(Servo.class, "gripperServo");
+
         leftExtender.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -67,9 +69,10 @@ public class opMode extends LinearOpMode {
                 double powerDifferential =
                     Math.min(1,
                             Math.max(0,
-                                    (leftExtender.getCurrentPosition()/
-                                    LEFT_EXTENDER_ENDSTOP - rightExtender.getCurrentPosition()/
-                                    RIGHT_EXTENDER_ENDSTOP) / 2 ));
+                                    (
+                                            leftExtender.getCurrentPosition()/ LEFT_EXTENDER_ENDSTOP -
+                                            rightExtender.getCurrentPosition()/ RIGHT_EXTENDER_ENDSTOP
+                                    ) / 2 ));
 
                 //1 if going out, -1 if going in
                 int direction = gamepad2.left_stick_y < 0 ? 1 : -1;
