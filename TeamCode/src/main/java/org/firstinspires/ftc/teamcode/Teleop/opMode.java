@@ -13,6 +13,7 @@ public class opMode extends LinearOpMode {
     //Jesus recommended it and said it would work
    static final double EXTENDER_SCALING = 1.0/3;
    static final double WRIST_SCALING_DEGREES = 1.0/300;
+   static final double GRIPPER_SCALING_DEGREES = 1.0/300;
     public void runOpMode() {
         DcMotor leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         DcMotor leftBack = hardwareMap.get(DcMotor.class, "leftBack");
@@ -30,43 +31,38 @@ public class opMode extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            if (gamepad1.left_stick_y != 0) {
+            // Forward and Backward controls
+            {
                 leftFront.setPower(gamepad1.left_stick_y);
                 leftBack.setPower(gamepad1.left_stick_y);
                 rightBack.setPower(gamepad1.left_stick_y);
                 rightFront.setPower(gamepad1.left_stick_y);
             }
-
-            if (gamepad1.right_stick_x != 0) {
+            // Left and Right rotation controls
+            {
                 leftFront.setPower(-gamepad1.right_stick_x);
                 leftBack.setPower(-gamepad1.right_stick_x);
                 rightBack.setPower(gamepad1.right_stick_x);
                 rightFront.setPower(gamepad1.right_stick_x);
+            }
+           // Strafing left and Strafing right
+            {
+                if (gamepad1.dpad_left) {
+                    leftFront.setPower(1);
+                    leftBack.setPower(-1);
+                    rightBack.setPower(1);
+                    rightFront.setPower(-1);
+                }
+                if (gamepad1.dpad_right) {
+                    leftFront.setPower(-1);
+                    leftBack.setPower(1);
+                    rightBack.setPower(-1);
+                    rightFront.setPower(1);
+                }
+            }
+            // Extender controls
 
-            }
-
-            if (gamepad1.left_stick_y == 0) {
-                leftFront.setPower(0);
-                leftBack.setPower(0);
-                rightBack.setPower(0);
-                rightFront.setPower(0);
-            }
-            if (gamepad1.dpad_left) {
-                leftFront.setPower(1);
-                leftBack.setPower(-1);
-                rightBack.setPower(1);
-                rightFront.setPower(-1);
-            }
-
-            if (gamepad1.dpad_right) {
-                leftFront.setPower(-1);
-                leftBack.setPower(1);
-                rightBack.setPower(-1);
-                rightFront.setPower(1);
-            }
-            if (gamepad2.left_stick_y != 0) {
-                leftExtender.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                rightExtender.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            {
                 double powerDifferential =
                     Math.min(1,
                             Math.max(0,
@@ -80,11 +76,24 @@ public class opMode extends LinearOpMode {
 
                 leftExtender.setPower((-gamepad2.left_stick_y - direction * powerDifferential) * EXTENDER_SCALING);
                 rightExtender.setPower((-gamepad2.left_stick_y + direction * powerDifferential) * EXTENDER_SCALING);
-
-
-            } else {
-                leftExtender.setPower(0);
-                rightExtender.setPower(0);
+            }
+            // To set the wrist servo A is down, B is forward
+            {
+                if (gamepad2.a) {
+                    wristServo.setPosition(0);
+                }
+                if (gamepad2.b) {
+                    wristServo.setPosition(90.0 * WRIST_SCALING_DEGREES);
+                }
+            }
+            // To reset all encoders on the bot
+            if (gamepad2.start){
+                leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                leftExtender.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                rightExtender.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             }
 
             telemetry.addData("leftFront Pos:", leftFront.getCurrentPosition());
@@ -95,20 +104,6 @@ public class opMode extends LinearOpMode {
             telemetry.addData("rightExtender Pos", rightExtender.getCurrentPosition());
             telemetry.addData("Left stick Y: ", gamepad2.left_stick_y);
             telemetry.addData("Right stick Y: ", gamepad2.right_stick_y);
-            if (gamepad2.a) {
-                wristServo.setPosition(0);
-            }
-            if (gamepad2.b) {
-                wristServo.setPosition(90.0 * WRIST_SCALING_DEGREES);
-            }
-            if (gamepad2.start){
-                leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                leftExtender.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                rightExtender.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            }
             telemetry.update();
         }
     }
