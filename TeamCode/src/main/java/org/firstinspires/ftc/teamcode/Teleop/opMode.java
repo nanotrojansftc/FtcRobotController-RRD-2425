@@ -92,10 +92,10 @@ public class opMode extends LinearOpMode {
             telemetry.addData("Left stick Y: ", gamepad2.left_stick_y);
             telemetry.addData("Right stick Y: ", gamepad2.right_stick_y);
             if (gamepad2.a) {
-                wristServo.setPosition(1);
+                wristServo.setPosition(0);
             }
             if (gamepad2.b) {
-                wristServo.setPosition(0);
+                wristServo.setPosition(90.0/300);
             }
             if (gamepad2.start){
                 leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
