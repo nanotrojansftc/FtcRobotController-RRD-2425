@@ -12,6 +12,7 @@ public class opMode extends LinearOpMode {
     static final int RIGHT_EXTENDER_ENDSTOP = 2052;
     //Jesus recommended it and said it would work
    static final double EXTENDER_SCALING = 1.0/3;
+   static final double WRIST_SCALING_DEGREES = 1.0/300;
     public void runOpMode() {
         DcMotor leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         DcMotor leftBack = hardwareMap.get(DcMotor.class, "leftBack");
@@ -98,7 +99,7 @@ public class opMode extends LinearOpMode {
                 wristServo.setPosition(0);
             }
             if (gamepad2.b) {
-                wristServo.setPosition(90.0/300);
+                wristServo.setPosition(90.0 * WRIST_SCALING_DEGREES);
             }
             if (gamepad2.start){
                 leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
