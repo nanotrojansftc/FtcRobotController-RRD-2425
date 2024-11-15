@@ -64,9 +64,13 @@ public class opMode extends LinearOpMode {
             if (gamepad2.left_stick_y != 0) {
                 leftExtender.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 rightExtender.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                double powerDifferential =leftExtender.getCurrentPosition()/
-                        LEFT_EXTENDER_ENDSTOP - rightExtender.getCurrentPosition()/
-                        RIGHT_EXTENDER_ENDSTOP ;
+                double powerDifferential =
+                    Math.min(1,
+                            Math.max(0,
+                                    (leftExtender.getCurrentPosition()/
+                                    LEFT_EXTENDER_ENDSTOP - rightExtender.getCurrentPosition()/
+                                    RIGHT_EXTENDER_ENDSTOP) / 2 ));
+
                 //1 if going out, -1 if going in
                 int direction = gamepad2.left_stick_y < 0 ? 1 : -1;
 
