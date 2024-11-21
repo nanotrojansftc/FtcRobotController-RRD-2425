@@ -46,7 +46,7 @@ public class Drive{
        dcMotorB.setPower(1);
        dcMotorC.setPower(1);
        dcMotorD.setPower(1);
-       if (dcMotorA.getCurrentPosition() == -993 * Tiles
+       /*if (dcMotorA.getCurrentPosition() == -993 * Tiles
                && dcMotorB.getCurrentPosition() == -1044 * Tiles
                && dcMotorC.getCurrentPosition() == -1037 * Tiles
                && dcMotorD.getCurrentPosition() == -1061 * Tiles){
@@ -60,7 +60,10 @@ public class Drive{
                     dcMotorD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
+
        }
+       */
+
 
     }
 

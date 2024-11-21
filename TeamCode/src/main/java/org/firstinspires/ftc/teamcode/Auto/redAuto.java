@@ -22,13 +22,6 @@ public  class redAuto extends LinearOpMode {
         while (opModeIsActive() && !isStopRequested()){
 
                 drive.driveTiles(1);
-                drive.setRotateDegrees(90);
-                drive.driveTiles(1);
-                drive.setRotateDegrees(45);
-                drive.driveTiles(1);
-                drive.setRotateDegrees(-45);
-                drive.driveTiles(6);
-                drive.driveTiles(-1);
 
 
 

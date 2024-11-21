@@ -12,7 +12,7 @@ public class opMode extends LinearOpMode {
     static final int RIGHT_EXTENDER_ENDSTOP = 1695;
     //Jesus recommended it and said it would work
    static final double EXTENDER_SCALING = 1.0/3;
-   static final double WRIST_SCALING_DEGREES = 1.0/300;
+   static final double WRIST_SCALING_DEGREES = 9.0/300;
    static final double GRIPPER_SCALING_DEGREES = 1.0/300;
     public void runOpMode() {
         DcMotor leftFront = hardwareMap.get(DcMotor.class, "leftFront");
@@ -77,19 +77,19 @@ public class opMode extends LinearOpMode {
             // To set the wrist servo A is down, B is forward
             {
                 if (gamepad2.a) {
-                    wristServo.setPosition(0);
+                    wristServo.setPosition(.8);
                 }
                 if (gamepad2.b) {
-                    wristServo.setPosition(90.0 * WRIST_SCALING_DEGREES);
+                    wristServo.setPosition(0.3);
                 }
             }
             // Gripper controls Y is open, X is close
             {
                 if (gamepad2.y){
-                    gripperServo.setPosition(45 * GRIPPER_SCALING_DEGREES);
+                    gripperServo.setPosition(120 * GRIPPER_SCALING_DEGREES);
                 }
                 if (gamepad2.x){
-                    gripperServo.setPosition(15 * GRIPPER_SCALING_DEGREES);
+                    gripperServo.setPosition(20 * GRIPPER_SCALING_DEGREES);
                 }
             }
             // To reset all encoders on the bot
@@ -108,6 +108,7 @@ public class opMode extends LinearOpMode {
             telemetry.addData("rightFront  Pos:", rightFront.getCurrentPosition());
             telemetry.addData("leftExtender Pos", leftExtender.getCurrentPosition());
             telemetry.addData("rightExtender Pos", rightExtender.getCurrentPosition());
+            telemetry.addData("Wrist Pos: ", wristServo.getPosition());
             telemetry.addData("Left stick Y: ", gamepad2.left_stick_y);
             telemetry.addData("Right stick Y: ", gamepad2.right_stick_y);
             telemetry.update();
