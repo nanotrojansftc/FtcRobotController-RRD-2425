@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Robot.Drive;
 @Autonomous(name="RoadRunnerAuto", group="Robot")
 // Don't edit!!!!!!!!!!!!!!!!!!!!!!
-public abstract class RoadRunnerAuto extends LinearOpMode {
+public class RoadRunnerAuto extends LinearOpMode {
     // instantiate your MecanumDrive at a particular pose.
     Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
     MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
@@ -30,14 +30,15 @@ public abstract class RoadRunnerAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        waitForStart();
         Action trajectoryAction1 = drive.actionBuilder(drive.pose)
                 .splineTo(new Vector2d(46.96, -5.61), Math.toRadians(254.48))
                 .build();
-        Actions.runBlocking(
-                new SequentialAction(
-                        trajectoryAction1
-                )
-        );
+
+        waitForStart();
+        if (opModeIsActive()){
+            Actions.runBlocking(trajectoryAction1);
+
+        }
+
     }
     }

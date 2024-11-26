@@ -19,15 +19,26 @@ public  class redAuto extends LinearOpMode {
             waitForStart();
         Drive drive = new Drive(hardwareMap);
 
-        while (opModeIsActive() && !isStopRequested()){
+        if(opModeIsActive() && !isStopRequested()){
+            drive.setRotateDegrees(-45);
+            drive.driveTiles(1);
+            drive.setRotateDegrees(45);
+            drive.driveTiles(1.2f);
+            drive.setRotateDegrees(-180);
+            drive.driveTiles(2);
+            drive.driveTiles(-3);
+            drive.strafeTiles(1);
+            drive.driveTiles(3);
+            drive.driveTiles(-2);
+            drive.strafeTiles(0.5F);
+            drive.driveTiles(3);
+            drive.driveTiles(-.5f);
+            drive.strafeTiles(-.75f);
+        }
 
-                drive.driveTiles(1);
-
-
-
-                telemetry.addLine(drive.gatherMotorPos());
-                telemetry.update();
-
+        while (opModeIsActive()){
+            telemetry.addLine(drive.gatherMotorPos());
+            telemetry.update();
         }
 
 
