@@ -53,10 +53,10 @@ public class Drive{
        dcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-       dcMotorA.setPower(.5);
-       dcMotorB.setPower(.5);
-       dcMotorC.setPower(.5);
-       dcMotorD.setPower(.5);
+       dcMotorA.setPower(.75);
+       dcMotorB.setPower(.75);
+       dcMotorC.setPower(.75);
+       dcMotorD.setPower(.75);
        sleep(2000);
    }
    public void setRotateDegrees(double Deg) {
@@ -68,15 +68,15 @@ public class Drive{
        dcMotorB.setTargetPosition((int) (10.36 * Deg));
        dcMotorC.setTargetPosition((int) (-11.3 * Deg));
        dcMotorD.setTargetPosition((int) (-10.6 * Deg));
-       dcMotorA.setPower(.5);
-       dcMotorB.setPower(.5);
-       dcMotorC.setPower(.5);
-       dcMotorD.setPower(.5);
+       dcMotorA.setPower(.75);
+       dcMotorB.setPower(.75);
+       dcMotorC.setPower(.75);
+       dcMotorD.setPower(.75);
        dcMotorA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-       sleep(3000);
+       sleep(2000);
     }
     public void strafeTiles (float toBeStrafed) {
         dcMotorA.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -87,15 +87,15 @@ public class Drive{
         dcMotorB.setTargetPosition((int) (-789 * toBeStrafed));
         dcMotorC.setTargetPosition((int) (909 * toBeStrafed));
         dcMotorD.setTargetPosition((int) (-772 * toBeStrafed));
-        dcMotorA.setPower(.5);
-        dcMotorB.setPower(.5);
-        dcMotorC.setPower(.5);
-        dcMotorD.setPower(.5);
+        dcMotorA.setPower(.75);
+        dcMotorB.setPower(.75);
+        dcMotorC.setPower(.75);
+        dcMotorD.setPower(.75);
         dcMotorA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         dcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         dcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         dcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        sleep(3000);
+        sleep(2000);
     }
 
     public String gatherMotorPos(){
