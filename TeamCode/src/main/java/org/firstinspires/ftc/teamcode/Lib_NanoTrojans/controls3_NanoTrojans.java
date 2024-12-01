@@ -3,8 +3,9 @@ package org.firstinspires.ftc.teamcode.Lib_NanoTrojans;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.sun.tools.javac.tree.DCTree;
 
-public class controls2_NanoTrojans {
+public class controls3_NanoTrojans {
     // Constants for encoder counts and wheel measurements
     static final double COUNTS_PER_REVOLUTION = 537.7; // Encoder counts per revolution
     static final double WHEEL_DIAMETER_MM = 96.0; // Wheel diameter in millimeters
@@ -17,18 +18,18 @@ public class controls2_NanoTrojans {
     private DcMotor lsLeft = null;
 
     //servo motors
-    private Servo rhsl = null;
+    private DcMotor llift = null;
 
     //2 claws servo motors
-    private Servo lhsl = null;
+    private DcMotor rlift = null;
     private Servo claw = null;
     private Servo arm = null;
-    private Servo clawup = null;
+    private Servo wrist = null;
 
     //2 arms servo motors
-    private CRServo intakewheels = null;
-    private Servo rintakelift = null;
-    private Servo lintakelift = null;
+
+    private Servo elbow = null;
+
     //private Servo clawlift = null;
 //    private Servo rarm = null;
 //    private Servo larm = null;
@@ -36,31 +37,24 @@ public class controls2_NanoTrojans {
     //private CRServo robotLift = null;
 
 
-    public controls2_NanoTrojans(DcMotor lsR, DcMotor lsL, Servo claw, Servo arm,
-                                 Servo clawup, Servo lhorizontal, Servo rhorizontal, Servo rintakeliftS, Servo lintakeliftS, CRServo intakewheelsCRS )
+    public controls3_NanoTrojans(DcMotor lsR, DcMotor lsL, Servo claw, Servo arm,
+                                 Servo wrist, Servo elbow, DcMotor llift, DcMotor rlift)
     {
         //intake= intak;
 
         lsRight=lsR;
         lsLeft=lsL;
-        lhsl = lhorizontal;
-        rhsl = rhorizontal;
+
 
         //clawlift=clawlift;
-        rintakelift =rintakeliftS;
-        lintakelift= lintakeliftS;
-        intakewheels = intakewheelsCRS;
+
 //        casket = casketS;
 
 //        rarm = rarm;
         //robotLift=robotL;
 //        dcArm =arm;
     }
-
-    public controls2_NanoTrojans(DcMotor lsRight, DcMotor lsLeft, Servo claw, Servo arm, Servo wrist, Servo elbow, DcMotor llift, DcMotor rlift) {
-    }
-
-    //    public void clawmove() {
+//    public void clawmove() {
 //        claw.setPosition(0.5);
 //    }
 //    public void iwheels()

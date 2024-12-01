@@ -41,6 +41,10 @@ public class DriveControl_NanoTorjan {
          x = leftStickX * 1.1; // Counteract imperfect strafing
          rx = rightStickX;   // Right Stick X value is used to control rotation of the roberts
 
+        //leftFront.setDirection(DcMotor.Direction.REVERSE);
+        //leftBack.setDirection(DcMotor.Direction.REVERSE);
+
+
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
         // at least one is out of the range [-1, 1]
@@ -59,10 +63,15 @@ public class DriveControl_NanoTorjan {
 //        rightFrontPower = ((y - x + rx) / denominator)*0.5;
 //         rightBackPower = ((y + x + rx) / denominator)*0.5;
 
+//        leftFrontPower = (y - x - rx) / denominator;
+//        leftBackPower = (y + x - rx) / denominator;
+//        rightFrontPower = (y - x + rx) / denominator;
+//        rightBackPower = (y + x + rx) / denominator;
+
         leftFrontPower = (y - x - rx) / denominator;
         leftBackPower = (y + x - rx) / denominator;
-        rightFrontPower = (y - x + rx) / denominator;
-        rightBackPower = (y + x + rx) / denominator;
+        rightFrontPower = (y + x + rx) / denominator;
+        rightBackPower = (y - x + rx) / denominator;
 
 
         leftFront.setPower(leftFrontPower);
