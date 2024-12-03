@@ -12,7 +12,7 @@ public  class blueAuto3pts extends LinearOpMode {
         waitForStart();
         Drive drive = new Drive(hardwareMap);
             if(opModeIsActive() && !isStopRequested()){
-            drive.strafeTiles(3);
+            drive.strafeTiles(-3);
             }
             while (opModeIsActive()){
             telemetry.addLine(drive.gatherMotorPos());
