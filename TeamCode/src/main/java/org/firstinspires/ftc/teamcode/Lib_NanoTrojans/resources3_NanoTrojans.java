@@ -40,6 +40,8 @@ public resources3_NanoTrojans(HardwareMap hardwareMap){
     arm = hardwareMap.servo.get("arm");
     wrist  = hardwareMap.servo.get("wrist");
     elbow = hardwareMap.servo.get("elbow");
+    llift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
 //

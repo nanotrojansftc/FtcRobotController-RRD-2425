@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
+import static android.os.SystemClock.sleep;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -38,6 +41,8 @@ public class TeleOpMainSimon2 extends LinearOpMode {
         telemetry.addLine("Initialized");
         telemetry.addLine("Claw Initial Position");
         telemetry.update();
+//        resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //driveControl = new DriveControl_Base(hardwareMap);
 
@@ -104,10 +109,20 @@ public class TeleOpMainSimon2 extends LinearOpMode {
         public void run(){
             //
             if (gamepad2.dpad_down){
-                //claw open
-                resources.claw.setPosition(0);
-                //
+                //claw wrist left
+                resources.wrist.setPosition(0.43);
+                //elbow straight
                 resources.elbow.setPosition(0.5);
+                //arm flip to control hubs
+                resources.arm.setPosition(0.2);
+            }
+            if (gamepad2.dpad_up){
+                //claw wrist right
+                resources.wrist.setPosition(1);
+                //elbow straight
+                resources.elbow.setPosition(0.5);
+                //arm flip to opposite of control hubs
+                resources.arm.setPosition(0.8);
             }
 
 
@@ -136,9 +151,9 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 
                 }
                 //turn 90 degrees
-                if (gamepad2.dpad_up){
-                    resources.wrist.setPosition(0.765);
-                }
+//                if (gamepad2.dpad_up){
+//                    resources.wrist.setPosition(0.765);
+//                }
 
             }
         }
@@ -151,10 +166,43 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
-
+//                resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 double liftb = gamepad2.left_stick_y;
-                resources.llift.setPower(-liftb);
+                resources.llift.setPower(liftb);
                 resources.rlift.setPower(liftb);
+
+                int rliftpos = resources.rlift.getCurrentPosition();
+                int lliftpos = resources.llift.getCurrentPosition();
+                telemetry.addData("rlift pos", rliftpos);
+                telemetry.addData("llift pos", lliftpos);
+                telemetry.update();
+                //vertical
+//                if (gamepad2.left_stick_y>0) {
+////                    resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+////                    resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                    resources.llift.setTargetPosition(2987);
+//                    resources.rlift.setTargetPosition(2214);
+//                    resources.llift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    resources.rlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    resources.llift.setPower(1);
+//                    resources.rlift.setPower(1);
+//
+//
+//                }
+//                //horizontal
+//                if (gamepad2.left_stick_y<0) {
+////                    resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+////                    resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                    resources.llift.setTargetPosition(0);
+//                    resources.rlift.setTargetPosition(0);
+//                    resources.llift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    resources.rlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    resources.llift.setPower(1);
+//                    resources.rlift.setPower(1);
+//
+//                }
+
 
             }//end of while
         }//end of run
@@ -196,9 +244,9 @@ public class TeleOpMainSimon2 extends LinearOpMode {
                 if (gamepad2.x){
                     resources.arm.setPosition(0.2);
                 }
-                if (gamepad2.dpad_down){
-                    resources.arm.setPosition(0.8);
-                }
+//                if (gamepad2.dpad_down){
+//                    resources.arm.setPosition(0.8);
+//                }
 
             }
         }
