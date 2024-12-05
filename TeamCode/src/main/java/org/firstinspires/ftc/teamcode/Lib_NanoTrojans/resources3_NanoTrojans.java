@@ -42,6 +42,8 @@ public resources3_NanoTrojans(HardwareMap hardwareMap){
     elbow = hardwareMap.servo.get("elbow");
     llift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     rlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    lsRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    lsLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
 //

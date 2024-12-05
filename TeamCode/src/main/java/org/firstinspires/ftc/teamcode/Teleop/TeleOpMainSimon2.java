@@ -28,8 +28,10 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
         resources = new resources3_NanoTrojans(hardwareMap);
         resourcesbase = new resources_base_NanoTrojans(hardwareMap);
+
 
 //        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 //        parameters.loggingEnabled = true;
@@ -41,8 +43,14 @@ public class TeleOpMainSimon2 extends LinearOpMode {
         telemetry.addLine("Initialized");
         telemetry.addLine("Claw Initial Position");
         telemetry.update();
+//        resources.llift.setPower(-0.5);
+//        resources.rlift.setPower(0.5);
+//        sleep(3000);
+//        resources.llift.setPower(0);
+//        resources.rlift.setPower(0);
 //        resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         //driveControl = new DriveControl_Base(hardwareMap);
 
@@ -93,13 +101,33 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 
         @Override
         public void run() {
+//            double maxtickleft = 1000;
+//            double maxtickright = -1000;
+            resources.lsLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            resources.lsRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            resources.llift.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            resources.rlift.setMode(DcMotor.RunMode.RESET_ENCODERS);
+
 
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
 
+
                 double lspower = gamepad2.right_stick_y;
                 resources.lsRight.setPower(-lspower);
                 resources.lsLeft.setPower(lspower);
+                int rlspos = resources.lsLeft.getCurrentPosition();
+                int llspos = resources.lsRight.getCurrentPosition();
+
+//                if (rlspos>maxtickright){
+//                    resources.lsRight.setPower(0);
+//                    resources.lsLeft.setPower(0);
+//                }
+//                if (llspos < maxtickleft) {
+//                    resources.lsRight.setPower(0);
+//                    resources.lsLeft.setPower(0);
+//                }
+
 
             }//end of while
         }//end of run
@@ -124,6 +152,7 @@ public class TeleOpMainSimon2 extends LinearOpMode {
                 //arm flip to opposite of control hubs
                 resources.arm.setPosition(0.8);
             }
+
 
 
 
@@ -159,18 +188,27 @@ public class TeleOpMainSimon2 extends LinearOpMode {
         }
     }
 
+
     private class lift implements Runnable {
+
 
         @Override
         public void run() {
+
 
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
 //                resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //                resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
                 double liftb = gamepad2.left_stick_y;
-                resources.llift.setPower(liftb);
-                resources.rlift.setPower(liftb);
+                resources.llift.setPower(-liftb);
+                resources.rlift.setPower(-liftb);
+
+//                double liftc=gamepad2.left_stick_x;
+//                resources.rlift.setPower(-liftc);
 
                 int rliftpos = resources.rlift.getCurrentPosition();
                 int lliftpos = resources.llift.getCurrentPosition();
@@ -178,30 +216,40 @@ public class TeleOpMainSimon2 extends LinearOpMode {
                 telemetry.addData("llift pos", lliftpos);
                 telemetry.update();
                 //vertical
-//                if (gamepad2.left_stick_y>0) {
-////                    resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-////                    resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//                    resources.llift.setTargetPosition(2987);
-//                    resources.rlift.setTargetPosition(2214);
-//                    resources.llift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                    resources.rlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                    resources.llift.setPower(1);
-//                    resources.rlift.setPower(1);
-//
-//
-//                }
-//                //horizontal
-//                if (gamepad2.left_stick_y<0) {
-////                    resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-////                    resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//                    resources.llift.setTargetPosition(0);
-//                    resources.rlift.setTargetPosition(0);
-//                    resources.llift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                    resources.rlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                    resources.llift.setPower(1);
-//                    resources.rlift.setPower(1);
-//
-//                }
+                if (gamepad2.left_trigger>0) {
+//                    resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                    resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    resources.llift.setTargetPosition(-772);
+                    resources.rlift.setTargetPosition(-696);
+                    resources.llift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    resources.rlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    resources.llift.setPower(1);
+                    resources.rlift.setPower(1);
+
+
+                }
+                //horizontal
+                if (gamepad2.right_trigger>0) {
+//                    resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                    resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    resources.llift.setTargetPosition(-3600);
+                    resources.rlift.setTargetPosition(-3516);
+                    resources.llift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    resources.rlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    resources.llift.setPower(1);
+                    resources.rlift.setPower(1);
+
+                }
+                // go back to original
+                if (gamepad2.right_bumper){
+                    resources.llift.setTargetPosition(0);
+                    resources.rlift.setTargetPosition(0);
+                    resources.llift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    resources.rlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    resources.llift.setPower(1);
+                    resources.rlift.setPower(1);
+
+                }
 
 
             }//end of while
