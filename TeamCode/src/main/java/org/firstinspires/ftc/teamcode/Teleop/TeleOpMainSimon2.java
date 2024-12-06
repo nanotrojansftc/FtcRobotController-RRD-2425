@@ -25,6 +25,13 @@ public class TeleOpMainSimon2 extends LinearOpMode {
     private DriveControl_NanoTorjan driveControl;
     //private DriveControl_Base driveControl;
     BNO055IMU imu;
+
+    public int rliftpos;
+    public int lliftpos;
+    public int rlspos;
+    public int llspos ;
+
+    boolean lsStoped = false;
 //    int rlspos = resources.lsLeft.getCurrentPosition();
 //    int llspos = resources.lsRight.getCurrentPosition();
 
@@ -110,18 +117,26 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 //            resources.llift.setMode(DcMotor.RunMode.RESET_ENCODERS);
 ////            resources.rlift.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-
+            double lspower;
+            double stoppedPowder=0;
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
 
 
-                double lspower = gamepad2.right_stick_y;
-                resources.lsRight.setPower(-lspower);
-                resources.lsLeft.setPower(lspower);
-                int rlspos = resources.lsLeft.getCurrentPosition();
-                int llspos = resources.lsRight.getCurrentPosition();
+                lspower = gamepad2.right_stick_y;
+//
+//                int rliftpos;
+//                int lliftpos;
+//                int rlspos;
+//                int llspos ;
+                rlspos = resources.lsLeft.getCurrentPosition();
+                llspos = resources.lsRight.getCurrentPosition();
                 telemetry.addData("rls pos", rlspos);
                 telemetry.addData("lls pos", llspos);
+                telemetry.addData("rlift pos", rliftpos);
+                telemetry.addData("llift pos", lliftpos);
+                telemetry.addData("lspower", lspower);
+                telemetry.addData("isLSStoped ", lsStoped);
                 telemetry.update();
 
 //                if (rlspos>maxtickright){
@@ -132,6 +147,42 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 //                    resources.lsRight.setPower(0);
 //                    resources.lsLeft.setPower(0);
 //                }
+                if (rliftpos<=-1000 && rlspos<=-2600){
+                    if(!lsStoped)
+                    {
+                        lsStoped = true;
+                        stoppedPowder = gamepad2.right_stick_y;
+                        resources.lsRight.setPower(0);
+                        resources.lsLeft.setPower(0);
+                        sleep(1000);
+                        telemetry.addLine("stop now");
+                        telemetry.update();
+                    }
+                    else
+                    {
+                        if(gamepad2.right_stick_y > 0.1)
+                        {
+                            rlspos = resources.lsLeft.getCurrentPosition();
+                            llspos = resources.lsRight.getCurrentPosition();
+                            lspower = gamepad2.right_stick_y;
+                            resources.lsRight.setPower(-lspower);
+                            resources.lsLeft.setPower(lspower);
+                            sleep(500);
+                            if(rliftpos>-1000 && rlspos>-2600) {
+                                lsStoped = false;
+                            }
+                        }
+
+                    }
+
+                }
+                else{
+                    telemetry.addLine("go to run state");
+                    telemetry.update();
+                    lspower = gamepad2.right_stick_y;
+                    resources.lsRight.setPower(-lspower);
+                    resources.lsLeft.setPower(lspower);
+                }
 
 
             }//end of while
@@ -141,22 +192,22 @@ public class TeleOpMainSimon2 extends LinearOpMode {
         @Override
         public void run(){
             //
-            if (gamepad2.dpad_down){
-                //claw wrist left
-                resources.wrist.setPosition(0.43);
-                //elbow straight
-                resources.elbow.setPosition(0.5);
-                //arm flip to control hubs
-                resources.arm.setPosition(0.2);
-            }
-            if (gamepad2.dpad_up){
-                //claw wrist right
-                resources.wrist.setPosition(1);
-                //elbow straight
-                resources.elbow.setPosition(0.5);
-                //arm flip to opposite of control hubs
-                resources.arm.setPosition(0.8);
-            }
+//            if (gamepad2.dpad_down){
+//                //claw wrist left
+//                resources.wrist.setPosition(0.43);
+//                //elbow straight
+//                resources.elbow.setPosition(0.5);
+//                //arm flip to control hubs
+//                resources.arm.setPosition(0.2);
+//            }
+//            if (gamepad2.dpad_up){
+//                //claw wrist right
+//                resources.wrist.setPosition(1);
+//                //elbow straight
+//                resources.elbow.setPosition(0.5);
+//                //arm flip to opposite of control hubs
+//                resources.arm.setPosition(0.8);
+//            }
 
 
 
@@ -174,13 +225,13 @@ public class TeleOpMainSimon2 extends LinearOpMode {
             while (!Thread.interrupted() && opModeIsActive()) {
                 //turn right
 
-                    if (gamepad2.dpad_right) {
+                    if (gamepad2.right_trigger>0) {
                         resources.wrist.setPosition(0.43);
                     }
 
 
                 //turn left
-                if (gamepad2.dpad_left) {
+                if (gamepad2.left_trigger>0) {
                     resources.wrist.setPosition(1);
 
                 }
@@ -201,6 +252,9 @@ public class TeleOpMainSimon2 extends LinearOpMode {
         public void run() {
 
 
+            double liftb;
+            double lspower;
+            boolean ReadPositon = true;
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
 //                int rlspos = resources.lsLeft.getCurrentPosition();
@@ -210,33 +264,40 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 //                resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //                resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-                double liftb = gamepad2.left_stick_y;
+                liftb = gamepad2.left_stick_y;
                 resources.llift.setPower(-liftb);
                 resources.rlift.setPower(-liftb);
 
 //                double liftc=gamepad2.left_stick_x;
 //                resources.rlift.setPower(-liftc);
 
-                int rliftpos = resources.rlift.getCurrentPosition();
-                int lliftpos = resources.llift.getCurrentPosition();
-                telemetry.addData("rlift pos1", rliftpos);
-                telemetry.addData("llift pos1", lliftpos);
-//                telemetry.update();
+                    rliftpos = resources.rlift.getCurrentPosition();
+                    lliftpos = resources.llift.getCurrentPosition();
 
-                int rlspos = resources.lsLeft.getCurrentPosition();
-                int llspos = resources.lsRight.getCurrentPosition();
-                telemetry.addData("rlift pos2", rliftpos);
-                telemetry.addData("llift pos2", lliftpos);
-                telemetry.addData("rls pos2", rlspos);
-                telemetry.addData("lls pos2", llspos);
+                telemetry.addData("rlift pos", rliftpos);
+                telemetry.addData("llift pos", lliftpos);
                 telemetry.update();
-                if (rlspos<-2600){
+
+                rlspos = resources.lsLeft.getCurrentPosition();
+                llspos = resources.lsRight.getCurrentPosition();
+//                telemetry.addData("rlift pos2", rliftpos);
+//                telemetry.addData("llift pos2", lliftpos);
+                telemetry.addData("right linear slide", rlspos);
+                telemetry.addData("left linear slide", llspos);
+                telemetry.update();
+                sleep(50);
+                if (rliftpos<=-1000 && rlspos<=-600){
                       resources.lsRight.setPower(0);
                       resources.lsLeft.setPower(0);
                       sleep(1000);
                       telemetry.addLine("stop now");
                       telemetry.update();
 
+                }
+                else{
+                    lspower = gamepad2.right_stick_y;
+                    resources.lsRight.setPower(-lspower);
+                    resources.lsLeft.setPower(lspower);
                 }
                 //vertical
 //                if (gamepad2.left_trigger>0) {
@@ -306,18 +367,18 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 
             while (!Thread.interrupted() && opModeIsActive()) {
 
-                // align with linear slides/ hit the ground/pick up pixels
-                if (gamepad2.y) {
-                    resources.arm.setPosition(0.5);
+                // align with linear slides/ hit the ground/pick up pixels// was y
+                if (gamepad2.dpad_up) {
+                    resources.arm.setPosition(0.3);
 
                 }
-                //slightly off the floor position/pick up pixels from wall position
-                if (gamepad2.x){
+                //slightly off the floor position/pick up pixels from wall position, was x
+                if (gamepad2.dpad_right){
                     resources.arm.setPosition(0.2);
                 }
-//                if (gamepad2.dpad_down){
-//                    resources.arm.setPosition(0.8);
-//                }
+                if (gamepad2.dpad_down){
+                    resources.arm.setPosition(0.8);
+                }
 
             }
         }
@@ -335,7 +396,7 @@ public class TeleOpMainSimon2 extends LinearOpMode {
                 }
                 //90 degrees
                 if (gamepad2.b) {
-                    resources.elbow.setPosition(0);
+                    resources.elbow.setPosition(0.08);
 
                 }
             }
