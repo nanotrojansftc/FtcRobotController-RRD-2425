@@ -14,9 +14,9 @@ import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources3_NanoTrojans;
 
 import java.util.concurrent.TimeUnit;
 
-@TeleOp(name ="TeleOpMainSimon2", group = "TeleOp")
+@TeleOp(name ="setto0", group = "TeleOp")
 
-public class TeleOpMainSimon2 extends LinearOpMode {
+public class setto0 extends LinearOpMode {
 
 
     private controls3_NanoTrojans g2control;
@@ -108,7 +108,7 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 //            resources.lsLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //            resources.lsRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //            resources.llift.setMode(DcMotor.RunMode.RESET_ENCODERS);
-////            resources.rlift.setMode(DcMotor.RunMode.RESET_ENCODERS);
+//            resources.rlift.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
 
             waitForStart();
@@ -118,11 +118,11 @@ public class TeleOpMainSimon2 extends LinearOpMode {
                 double lspower = gamepad2.right_stick_y;
                 resources.lsRight.setPower(-lspower);
                 resources.lsLeft.setPower(lspower);
-                int rlspos = resources.lsLeft.getCurrentPosition();
-                int llspos = resources.lsRight.getCurrentPosition();
-                telemetry.addData("rls pos", rlspos);
-                telemetry.addData("lls pos", llspos);
-                telemetry.update();
+//                int rlspos = resources.lsLeft.getCurrentPosition();
+//                int llspos = resources.lsRight.getCurrentPosition();
+//                telemetry.addData("rls pos", rlspos);
+//                telemetry.addData("lls pos", llspos);
+//                telemetry.update();
 
 //                if (rlspos>maxtickright){
 //                    resources.lsRight.setPower(0);
@@ -174,9 +174,9 @@ public class TeleOpMainSimon2 extends LinearOpMode {
             while (!Thread.interrupted() && opModeIsActive()) {
                 //turn right
 
-                    if (gamepad2.dpad_right) {
-                        resources.wrist.setPosition(0.43);
-                    }
+                if (gamepad2.dpad_right) {
+                    resources.wrist.setPosition(0.43);
+                }
 
 
                 //turn left
@@ -203,12 +203,12 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
-//                int rlspos = resources.lsLeft.getCurrentPosition();
-//                int llspos = resources.lsRight.getCurrentPosition();
-//                resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//                resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//                resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//                resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                int rlspos = resources.lsLeft.getCurrentPosition();
+                int llspos = resources.lsRight.getCurrentPosition();
+                resources.lsRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                resources.lsLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
                 double liftb = gamepad2.left_stick_y;
                 resources.llift.setPower(-liftb);
@@ -219,25 +219,12 @@ public class TeleOpMainSimon2 extends LinearOpMode {
 
                 int rliftpos = resources.rlift.getCurrentPosition();
                 int lliftpos = resources.llift.getCurrentPosition();
-                telemetry.addData("rlift pos1", rliftpos);
-                telemetry.addData("llift pos1", lliftpos);
-//                telemetry.update();
-
-                int rlspos = resources.lsLeft.getCurrentPosition();
-                int llspos = resources.lsRight.getCurrentPosition();
-                telemetry.addData("rlift pos2", rliftpos);
-                telemetry.addData("llift pos2", lliftpos);
-                telemetry.addData("rls pos2", rlspos);
-                telemetry.addData("lls pos2", llspos);
+                telemetry.addData("rlift pos", rliftpos);
+                telemetry.addData("llift pos", lliftpos);
                 telemetry.update();
-                if (rlspos<-2600){
-                      resources.lsRight.setPower(0);
-                      resources.lsLeft.setPower(0);
-                      sleep(1000);
-                      telemetry.addLine("stop now");
-                      telemetry.update();
-
-                }
+//                if (rliftpos<-1500){
+//                    if rlspos>
+//                }
                 //vertical
 //                if (gamepad2.left_trigger>0) {
 ////                    resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

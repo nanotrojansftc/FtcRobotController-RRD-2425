@@ -35,12 +35,12 @@ public class Drive{
                 dcMotorB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 dcMotorC.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 dcMotorD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                dcMotorE = hardwareMap.get(DcMotor.class, "leftExtender");
-                dcMotorF = hardwareMap.get(DcMotor.class, "rightExtender");
+//                dcMotorE = hardwareMap.get(DcMotor.class, "leftExtender");
+//                dcMotorF = hardwareMap.get(DcMotor.class, "rightExtender");
                 runTime.reset();
             }
 
-   public void driveTiles(float Tiles) {
+   public void driveTiles(double Tiles) {
        dcMotorA.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        dcMotorB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        dcMotorD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -57,7 +57,7 @@ public class Drive{
        dcMotorB.setPower(.75);
        dcMotorC.setPower(.75);
        dcMotorD.setPower(.75);
-       sleep(2000);
+       sleep(1500);
    }
    public void setRotateDegrees(double Deg) {
        dcMotorA.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -76,9 +76,9 @@ public class Drive{
        dcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-       sleep(2000);
+       sleep(500);
     }
-    public void strafeTiles (float toBeStrafed) {
+    public void strafeTiles (double toBeStrafed) {
         dcMotorA.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcMotorB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcMotorD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -95,7 +95,15 @@ public class Drive{
         dcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         dcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         dcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        sleep(2000);
+        sleep(1500);
+    }
+    public void stop(double Tiles) {
+
+        dcMotorA.setPower(0);
+        dcMotorB.setPower(0);
+        dcMotorC.setPower(0);
+        dcMotorD.setPower(0);
+        sleep(1000000);
     }
 
     public String gatherMotorPos(){
