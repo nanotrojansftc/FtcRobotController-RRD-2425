@@ -53,23 +53,23 @@ public class EncoderAutoMovement extends LinearOpMode {
         strafe(0.8, 25);
 
         sleep(500);
-        drive(0.8, 45);
+        drive(0.8, 25);
 
         sleep(500);
-        strafe(0.8,7);
+        strafe(0.8,10);
 
         sleep(500);
-        drive(1,-20);
+        drive(1,-45);
 
-        sleep(1000);
-        drive(1, -25);
+//        sleep(1000);
+//        drive(1, -25);
 
-        drive(1, 40);
+        drive(1, 45);
 
         strafe(1,20);
 
-        drive(1,-20);
-        drive(0,0);
+        drive(1,-45);
+     //   drive(0,0);
 
 //        strafe(-1, 15);
 //        strafe(1, 15);
@@ -128,10 +128,74 @@ public class EncoderAutoMovement extends LinearOpMode {
     public void strafe(double speed, double distanceInInches) {
         int targetPosition = (int) (distanceInInches * COUNTS_PER_INCH);
 
-        leftFront.setTargetPosition(leftFront.getCurrentPosition() + targetPosition);
+        leftFront.setTargetPosition(leftFront.getCurrentPosition() - targetPosition);
         rightFront.setTargetPosition(rightFront.getCurrentPosition() - targetPosition);
+        leftBack.setTargetPosition(leftBack.getCurrentPosition() + targetPosition);
+        rightBack.setTargetPosition(rightBack.getCurrentPosition() + targetPosition);
+
+        // Set to RUN_TO_POSITION mode
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // Set motor power
+        leftFront.setPower(speed);
+        rightFront.setPower(speed);
+        leftBack.setPower(speed);
+        rightBack.setPower(speed);
+
+        // Wait until motion is complete
+        while (opModeIsActive() &&
+                (leftFront.isBusy() && rightFront.isBusy() &&
+                        leftBack.isBusy() && rightBack.isBusy())) {
+            telemetry.addData("Path", "Strafing to %7d", targetPosition);
+            telemetry.update();
+        }
+
+        // Stop all motion
+        stopMotors();
+    }
+
+    public void rightTurn(double speed, double distanceInInches) {
+        int targetPosition = (int) (distanceInInches * COUNTS_PER_INCH);
+
+        leftFront.setTargetPosition(leftFront.getCurrentPosition() - targetPosition);
+        rightFront.setTargetPosition(rightFront.getCurrentPosition() + targetPosition);
         leftBack.setTargetPosition(leftBack.getCurrentPosition() - targetPosition);
         rightBack.setTargetPosition(rightBack.getCurrentPosition() + targetPosition);
+
+        // Set to RUN_TO_POSITION mode
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // Set motor power
+        leftFront.setPower(speed);
+        rightFront.setPower(speed);
+        leftBack.setPower(speed);
+        rightBack.setPower(speed);
+
+        // Wait until motion is complete
+        while (opModeIsActive() &&
+                (leftFront.isBusy() && rightFront.isBusy() &&
+                        leftBack.isBusy() && rightBack.isBusy())) {
+            telemetry.addData("Path", "Strafing to %7d", targetPosition);
+            telemetry.update();
+        }
+
+        // Stop all motion
+        stopMotors();
+    }
+
+    public void leftTurn(double speed, double distanceInInches) {
+        int targetPosition = (int) (distanceInInches * COUNTS_PER_INCH);
+
+        leftFront.setTargetPosition(leftFront.getCurrentPosition() + targetPosition);
+        rightFront.setTargetPosition(rightFront.getCurrentPosition() - targetPosition);
+        leftBack.setTargetPosition(leftBack.getCurrentPosition() + targetPosition);
+        rightBack.setTargetPosition(rightBack.getCurrentPosition() - targetPosition);
 
         // Set to RUN_TO_POSITION mode
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
