@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
-import static android.os.SystemClock.sleep;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -12,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import static android.os.SystemClock.sleep;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.Drawing;
 import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.*;
@@ -24,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 @TeleOp(name ="TeleOpMainSimon2", group = "TeleOp")
 
 public class TeleOpMainSimon2 extends LinearOpMode {
-
 
     private controls3_NanoTrojans g2control;
     private resources3_NanoTrojans resources;
@@ -157,7 +154,7 @@ public class TeleOpMainSimon2 extends LinearOpMode {
                 telemetry.addData("isLSStoped ", lsStoped);
                 telemetry.update();
 
-                if (rliftpos<=-1000 && rlspos<=-2600){
+                if (rliftpos<=-500 && rlspos<=-1100){
                     if(!lsStoped)
                     {
                         lsStoped = true;
@@ -345,23 +342,26 @@ public class TeleOpMainSimon2 extends LinearOpMode {
     public class combo implements Runnable{
         @Override
         public void run(){
-            //
-//            if (gamepad2.dpad_down){
-//                //claw wrist left
-//                resources.wrist.setPosition(0.43);
-//                //elbow straight
-//                resources.elbow.setPosition(0.5);
-//                //arm flip to control hubs
-//                resources.arm.setPosition(0.2);
-//            }
-//            if (gamepad2.dpad_up){
-//                //claw wrist right
-//                resources.wrist.setPosition(1);
-//                //elbow straight
-//                resources.elbow.setPosition(0.5);
-//                //arm flip to opposite of control hubs
-//                resources.arm.setPosition(0.8);
-//            }
+            waitForStart();
+
+            while (!Thread.interrupted() && opModeIsActive()) {
+                if (gamepad2.dpad_right) {
+                    //claw wrist left
+                    resources.wrist.setPosition(0.43);
+                    //elbow straight
+                    resources.elbow.setPosition(0.5);
+                    //arm flip to control hubs
+                    resources.arm.setPosition(0.2);
+                }
+                if (gamepad2.dpad_left) {
+                    //claw wrist right
+                    resources.wrist.setPosition(1);
+                    //elbow straight
+                    resources.elbow.setPosition(0.5);
+                    //arm flip to opposite of control hubs
+                    resources.arm.setPosition(0.8);
+                }
+            }
 
         }
     }
