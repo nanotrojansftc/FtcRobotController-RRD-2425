@@ -39,7 +39,7 @@ import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.*;
  * This class contains the Autonomous Mode program.
  */
 @Config
-@Autonomous(name = "Auto1", group = "Linear Opmode")
+@Autonomous(name = "Auto_NT_1", group = "Linear Opmode")
 public class Auto_NT_1 extends LinearOpMode {
 
     // Constants for encoder counts and wheel measurements
