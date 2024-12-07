@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "Encoder Auto Movement", group = "Linear Opmode")
-public class EncoderAutoMovement extends LinearOpMode {
+@Autonomous(name = "Encoder Auto Movement 3", group = "Linear Opmode")
+public class EncoderAutoMovement3 extends LinearOpMode {
 
     // Declare motors
     private DcMotor leftFront;

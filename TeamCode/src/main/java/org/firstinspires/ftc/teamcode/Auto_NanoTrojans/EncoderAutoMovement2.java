@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "Encoder Auto Movement", group = "Linear Opmode")
-public class EncoderAutoMovement extends LinearOpMode {
+@Autonomous(name = "Encoder Auto Movement 2", group = "Linear Opmode")
+public class EncoderAutoMovement2 extends LinearOpMode {
 
     // Declare motors
     private DcMotor leftFront;
@@ -47,28 +47,28 @@ public class EncoderAutoMovement extends LinearOpMode {
         waitForStart();
 
         // Drive forward 5 feet (60 inches)
-        drive(0.5, 20);
+        drive(0.5, 32);
 
-        sleep(200);
-        strafe(0.5, 25);
-
-        sleep(500);
-        drive(0.5, 30);
-
-        sleep(500);
-        strafe(0.5,12);
-
-        sleep(500);
-        drive(0.5,-50);
-
-//        sleep(1000);
-//        drive(1, -25);
-
-        drive(0.5, 50);
-
-        strafe(0.5,10);
-
-        drive(0.5,-50);
+//        sleep(500);
+//        strafe(0.5, -25);
+//
+//        sleep(500);
+//        drive(0.5, 30);
+//
+//        sleep(500);
+//        strafe(0.5,-12);
+//
+//        sleep(500);
+//        drive(0.5,-50);
+//
+////        sleep(1000);
+////        drive(1, -25);
+//
+//        drive(0.5, 50);
+//
+//        strafe(0.5,-10);
+//
+//        drive(0.5,-50);
      //   drive(0,0);
 
 //        strafe(-1, 15);
