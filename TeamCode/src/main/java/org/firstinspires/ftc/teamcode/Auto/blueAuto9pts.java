@@ -9,15 +9,16 @@ public  class blueAuto9pts extends LinearOpMode {
         waitForStart();
         Drive drive = new Drive(hardwareMap);
             if(opModeIsActive() && !isStopRequested()){
-            drive.setRotateDegrees(-45);
-            drive.driveTiles(1.3f);
-            drive.setRotateDegrees(45);
-            drive.driveTiles(1.5f);
-            drive.setRotateDegrees(-180);
-            drive.driveTiles(2.5f);
-            drive.driveTiles(-2.5f);
-            drive.strafeTiles(1);
-            drive.driveTiles(2.5f);
+                drive.driveTiles(1);
+                /*drive.strafeTiles(.85f);
+                drive.driveTiles(1.5f);
+                drive.setRotateDegrees(180);
+                drive.strafeTiles(-10/24f);
+                drive.driveTiles(2.25f);
+                drive.driveTiles(-2.25f);
+                drive.strafeTiles(11/24f);
+                drive.driveTiles(2.25f);
+                */
             }
             while (opModeIsActive()){
             telemetry.addLine(drive.gatherMotorPos());

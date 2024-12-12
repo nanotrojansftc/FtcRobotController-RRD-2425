@@ -9,11 +9,12 @@ public  class redAuto3pts extends LinearOpMode {
         waitForStart();
         Drive drive = new Drive(hardwareMap);
             if(opModeIsActive() && !isStopRequested()){
-            drive.strafeTiles(-3);
+            drive.strafeTiles(-1f);
             }
             while (opModeIsActive()){
             telemetry.addLine(drive.gatherMotorPos());
             telemetry.update();
             }
+
     }
 }
