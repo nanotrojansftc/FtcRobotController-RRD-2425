@@ -154,7 +154,7 @@ public class TeleOpMainSimon2 extends LinearOpMode {
                 telemetry.addData("isLSStoped ", lsStoped);
                 telemetry.update();
 
-                if (rliftpos<=-500 && rlspos<=-1500){
+                if (rliftpos<=-500 && rlspos<=-1300){
                     if(!lsStoped)
                     {
                         lsStoped = true;
