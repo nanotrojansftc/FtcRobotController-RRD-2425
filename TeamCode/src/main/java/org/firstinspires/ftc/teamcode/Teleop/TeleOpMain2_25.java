@@ -91,20 +91,37 @@ public class TeleOpMain2_25 extends LinearOpMode {
     public class hls implements Runnable {
         @Override
         public void run() {
+            boolean stop = false;
+            double rpos =0;
+            double lpos=0;
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
+                double lspower = gamepad2.left_stick_y;
+                if (!false){
+                    while (lspower>=0.1){
+                        rpos +=0.05;
+                        lpos-=0.05;
+                    }
+                    while (lspower<=0.1){
+                        rpos -=0.05;
+                        lpos+=0.05;
+                    }
+                }
+//                if (rpos<=0.3){
+//                    stop=!stop;
+//                }
 
-                double hlsbool = gamepad2.right_trigger;
+                //double hlsbool = gamepad2.right_trigger;
 //                if (hlsbool >=0.7){
 //                    resources.rhsl.setPower(0);
 //                    resources.lhsl.setPower(0);
 //                }
-                resources.rhsl.setPower(hlsbool);
-                resources.lhsl.setPower(-hlsbool);
+                //resources.rhsl.setPower(hlsbool);
+                //resources.lhsl.setPower(-hlsbool);
 
-                double hlsboolback = gamepad2.left_trigger;
-                resources.rhsl.setPower(-hlsboolback);
-                resources.lhsl.setPower(hlsboolback);
+                //double hlsboolback = gamepad2.left_trigger;
+                //resources.rhsl.setPower(-hlsboolback);
+                //resources.lhsl.setPower(hlsboolback);
 //                if (gamepad2.right_bumper){
 //                    horizontalls=true;
 //                }
@@ -143,6 +160,8 @@ public class TeleOpMain2_25 extends LinearOpMode {
 
     private class lsControl implements Runnable {
         boolean clawClosed = false;
+        double rpos = 0;
+        double lpos = 1;
 
         @Override
         public void run() {
@@ -158,7 +177,8 @@ public class TeleOpMain2_25 extends LinearOpMode {
 
 
 
-                double lspower = gamepad2.right_stick_y;
+                double lspower = gamepad2.left_stick_y;
+
                 resources.lsRight.setPower(-lspower);
                 resources.lsLeft.setPower(-lspower);
 
