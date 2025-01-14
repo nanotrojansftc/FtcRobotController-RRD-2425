@@ -77,7 +77,7 @@ public class opMode extends LinearOpMode {
             // To set the wrist servo A is down, B is forward
             {
                 if (gamepad2.a) {
-                    wristServo.setPosition(.8);
+                    wristServo.setPosition(0);
                 }
                 if (gamepad2.b) {
                     wristServo.setPosition(0.3);
@@ -86,10 +86,10 @@ public class opMode extends LinearOpMode {
             // Gripper controls Y is open, X is close
             {
                 if (gamepad2.y){
-                    gripperServo.setPosition(120 * GRIPPER_SCALING_DEGREES);
+                    gripperServo.setPosition(0);
                 }
                 if (gamepad2.x){
-                    gripperServo.setPosition(20 * GRIPPER_SCALING_DEGREES);
+                    gripperServo.setPosition(.25);
                 }
             }
             // To reset all encoders on the bot
