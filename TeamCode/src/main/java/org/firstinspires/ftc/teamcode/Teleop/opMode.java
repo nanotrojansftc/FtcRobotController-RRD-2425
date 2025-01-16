@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.Teleop;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,10 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class opMode extends LinearOpMode {
     static final int LEFT_EXTENDER_ENDSTOP = 1695;
     static final int RIGHT_EXTENDER_ENDSTOP = 1695;
-    //Jesus recommended it and said it would work
-   static final double EXTENDER_SCALING = 1.0/3;
-   static final double WRIST_SCALING_DEGREES = 9.0/300;
-   static final double GRIPPER_SCALING_DEGREES = 1.0/300;
+
     public void runOpMode() {
         DcMotor leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         DcMotor leftBack = hardwareMap.get(DcMotor.class, "leftBack");
@@ -28,8 +24,8 @@ public class opMode extends LinearOpMode {
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
         waitForStart();
+
         while (opModeIsActive()) {
             // Forward and Backward controls
             {
@@ -109,6 +105,7 @@ public class opMode extends LinearOpMode {
             telemetry.addData("leftExtender Pos", leftExtender.getCurrentPosition());
             telemetry.addData("rightExtender Pos", rightExtender.getCurrentPosition());
             telemetry.addData("Wrist Pos: ", wristServo.getPosition());
+            telemetry.addData("Gripper Pos: ", gripperServo.getPosition());
             telemetry.addData("Left stick Y: ", gamepad2.left_stick_y);
             telemetry.addData("Right stick Y: ", gamepad2.right_stick_y);
             telemetry.update();
