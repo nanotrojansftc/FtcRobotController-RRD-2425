@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.Robot.Drive;
 @Autonomous(name="talonb", group="Autonomous")
 // Don't edit!!!!!!!!!!!!!!!!!!!!!
 public  class talonblue extends LinearOpMode {
-        private controls3_NanoTrojans g2control;
-        private resources3_NanoTrojans resources;
+        //private controls3_NanoTrojans g2control;
+        //private resources3_NanoTrojans resources;
         private resources_base_NanoTrojans resourcesbase;
         private DriveControl_NanoTorjan driveControl;
 
@@ -32,14 +32,14 @@ public  class talonblue extends LinearOpMode {
 
             while (opModeIsActive() && !isStopRequested()){
                 //make angle of linear slides vertical
-                    resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    resources.llift.setTargetPosition(900);
-                    resources.rlift.setTargetPosition(-900);
-                    resources.llift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    resources.rlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    resources.llift.setPower(1);
-                    resources.rlift.setPower(1);
+//                    resources.llift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                    resources.rlift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                    resources.llift.setTargetPosition(900);
+//                    resources.rlift.setTargetPosition(-900);
+//                    resources.llift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    resources.rlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    resources.llift.setPower(1);
+//                    resources.rlift.setPower(1);
 //              hang specimen
                 drive.driveTiles(1);
                 //go get first box thing

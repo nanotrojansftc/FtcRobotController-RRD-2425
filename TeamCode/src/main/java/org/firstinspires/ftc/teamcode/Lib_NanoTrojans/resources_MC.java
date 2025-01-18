@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class resources_MC {
     public DcMotor lsRight = null;
     public DcMotor lsLeft = null;
-    public Servo rhs = null;
-    public Servo lhs = null;
+    public CRServo rhs = null;
+    public CRServo lhs = null;
 
     public DcMotor intake = null;
 
@@ -39,8 +39,8 @@ public resources_MC(HardwareMap hardwareMap){
 
     intake = hardwareMap.dcMotor.get("intake");
 
-    rhs = hardwareMap.servo.get("righthorizontal");
-    lhs = hardwareMap.servo.get("lefthorizontal");
+    rhs = hardwareMap.crservo.get("righthorizontal");
+    lhs = hardwareMap.crservo.get("lefthorizontal");
 
     blocker = hardwareMap.servo.get("blocker");
 

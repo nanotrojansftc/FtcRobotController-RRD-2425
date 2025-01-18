@@ -49,8 +49,8 @@ public class EncoderAutoMovement extends LinearOpMode {
         // Drive forward 5 feet (60 inches)
         drive(0.5, 20);
 
-        sleep(200);
-        strafe(0.5, 25);
+        sleep(2000);
+        strafe(0.5, -25);
 
         sleep(500);
         drive(0.5, 30);
