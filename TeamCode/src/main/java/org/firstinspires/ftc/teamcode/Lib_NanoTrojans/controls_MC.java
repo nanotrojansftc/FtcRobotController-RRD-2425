@@ -34,7 +34,7 @@ public class controls_MC {
 
 
     public controls_MC(DcMotor lsR, DcMotor lsL, CRServo lhorizontal, CRServo rhorizontal, DcMotor intake
-                       , Servo blocker, Servo ril, Servo lil, Servo claw, Servo ra, Servo la)
+                       , Servo blocker, Servo ril, Servo lil, Servo claw, Servo ra, Servo la, DcMotor hanger)
     {
         //intake= intak;
         lsRight=lsR;
@@ -49,11 +49,96 @@ public class controls_MC {
     public void closeclaw()
     {
         //for the claw, it is a regular motor so you set positions; you just have to keep tweaking the code and test out positions that you input.
-        claw.setPosition(0.6);
+        claw.setPosition(0.7);
     }
     public void openclaw()
     {
         //for the claw, it is a regular motor so you set positions; you just have to keep tweaking the code and test out positions that you input.
         claw.setPosition(0.3);
     }
+    public void armup()
+    {
+        ra.setPosition(0.01);
+        la.setPosition(0.2);
+    }
+    public void armdown()
+    {
+        ra.setPosition(0.9);
+        la.setPosition(1);
+    }
+    public void intakedown()
+    {
+        // also added blocker up
+        blocker.setPosition(1);
+
+        ril.setPosition(0.95);
+        lil.setPosition(0.0);
+    }
+    public void intakeup()
+    {
+        // also added blocker down
+        blocker.setPosition(0.58);
+
+        ril.setPosition(0.4);
+        lil.setPosition(0.6);
+    }
+    public void intakeon()
+    {
+        intake.setPower(1);
+    }
+    public void intakehalf()
+    {
+        intake.setPower(0.65);
+    }
+    public void intakeoff()
+    {
+        intake.setPower(0);
+    }
+    public void intakereverse()
+    {
+        intake.setPower(-1);
+    }
+    public void hsretract()
+    {
+        rhs.setPower(0.1);
+        lhs.setPower(-0.1);
+    }
+    public void hsextend()
+    {
+        rhs.setPower(-0.3);
+        lhs.setPower(0.3);
+    }
+    public void lson()
+    {
+        lsRight.setPower(-1);
+        lsLeft.setPower(1);
+    }
+    public void lsreverse()
+    {
+        lsRight.setPower(1);
+        lsLeft.setPower(-1);
+    }
+    public void lsstall()
+    {
+        lsRight.setPower(-0.1);
+        lsLeft.setPower(0.1);
+    }
+    public void lsoff(){
+        lsRight.setPower(0);
+        lsLeft.setPower(0);
+    }
+    public void hangeron()
+    {
+
+    }
+
+
+
+
+
+
+
+
+
+
     }

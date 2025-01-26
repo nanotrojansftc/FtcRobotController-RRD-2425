@@ -38,8 +38,9 @@ public class TeleOpMainMC extends LinearOpMode {
     boolean lsStoped = false;
     public int rhspos;
     public int lhspos ;
-
     boolean canNotMoveUp = false;
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -52,8 +53,8 @@ public class TeleOpMainMC extends LinearOpMode {
         telemetry.update();
 
         driveControl = new DriveControl_NanoTorjan(resourcesbase.leftFront, resourcesbase.rightFront, resourcesbase.leftBack, resourcesbase.rightBack);
-        //control = new controls_MC(resources.lsRight, resources.lsLeft, resources.lhs, resources.rhs, resources.intake
-               // , resources.blocker, resources.ril, resources.lil, resources.claw, resources.ra, resources.la);
+        control = new controls_MC(resources.lsRight, resources.lsLeft, resources.lhs, resources.rhs, resources.intake
+                , resources.blocker, resources.ril, resources.lil, resources.claw, resources.ra, resources.la, resources.hanger);
 
         waitForStart();
 
@@ -157,14 +158,6 @@ public class TeleOpMainMC extends LinearOpMode {
                 double hlspower = gamepad2.left_stick_y;
                 resources.rhs.setPower(0.5*hlspower);
                 resources.lhs.setPower(0.5*-hlspower);
-                if(hlspower<0) {
-
-                    canNotMoveUp = true;
-                }
-                if (hlspower > 0) {
-
-                    canNotMoveUp = false;
-                }
 
 
             }//end of while
@@ -182,23 +175,7 @@ public class TeleOpMainMC extends LinearOpMode {
                 double lspower = gamepad2.right_stick_y;
                 resources.lsRight.setPower(lspower);
                 resources.lsLeft.setPower(-lspower);
-                if (gamepad2.x){
-//                    resources.ra.setPosition(0.6);
-//                    resources.la.setPosition(0.4);
-//                    sleep(500);
-//                    resources.claw.setPosition(0);
-                    resourcesbase.leftBack.setPower(-1);
-                    resourcesbase.rightBack.setPower(-1);
-                    resourcesbase.leftFront.setPower(1);
-                    resourcesbase.rightFront.setPower(1);
-                    sleep(1000);
-                    resourcesbase.leftBack.setPower(0);
-                    resourcesbase.rightBack.setPower(0);
-                    resourcesbase.leftFront.setPower(0);
-                    resourcesbase.rightFront.setPower(0);
 
-
-                }
 
 
 
@@ -241,23 +218,20 @@ public class TeleOpMainMC extends LinearOpMode {
             while (!Thread.interrupted() && opModeIsActive()) {
 //                resources.ra.setPosition(0.0);
 //                resources.la.setPosition(1);
-                if (gamepad2.dpad_up  && !canNotMoveUp){
+                if (gamepad2.dpad_up){
                     //resources.ra.setPosition(0.3);
                     //resources.la.setPosition(0.7);
-                    resources.ra.setPosition(0.01);
-                    resources.la.setPosition(0.2);
+                    control.armup();
                 }
                 //
                 if (gamepad2.dpad_down){
-                    resources.claw.setPosition(0.6);
+                    control.openclaw();
 
 
-                    resources.ra.setPosition(0.9);
-                    resources.la.setPosition(1);
+                    control.armdown();
 
-                    resources.rhs.setPower(0.8);
-                    resources.lhs.setPower(-0.8);
-                    resources.claw.setPosition(0.3);
+                    control.hsretract();
+
                 }
 
             }
@@ -304,23 +278,13 @@ public class TeleOpMainMC extends LinearOpMode {
                 while (!Thread.interrupted() && opModeIsActive()) {
                     //open
                     if (gamepad2.left_bumper) {
-                        resources.claw.setPosition(0.3);
+                        control.openclaw();
                         //control.openclaw();
                     }
                     //close
                     if (gamepad2.right_bumper) {
-                        resources.claw.setPosition(0.7);
-                        //control.closeclaw();
-                        //sleep(200);
-                        //resources.rhs.setPower(0.2);
-                        //resources.lhs.setPower(-0.2);
-//sleep(50);
-                        resources.rhs.setPower(-0.8);
-                        resources.lhs.setPower(0.8);
-                        //resources.rhs.setPower(-0.1);
-                        //resources.lhs.setPower(0.1);
-                        //resources.rhs.setPower(-0.1);
-                        //resources.lhs.setPower(0.1);
+                        control.closeclaw();
+
 
                     }
                 }
@@ -347,19 +311,7 @@ public class TeleOpMainMC extends LinearOpMode {
 
                     //}
                     // lift arm from down to up
-                    if (gamepad2.x) {
-//                  close claw
-                        resources.claw.setPosition(0.6);
-                        resources.rhs.setPower(-0.8);
-                        resources.lhs.setPower(0.8);
-//                  flip arm
-                        resources.ra.setPosition(0.1);
-                        resources.la.setPosition(0.1);
-//                  sleep (1000)
-//                  open claw
 
-
-                    }
 
                     if(!canNotMoveUp) {
                         if (gamepad1.left_trigger>0){

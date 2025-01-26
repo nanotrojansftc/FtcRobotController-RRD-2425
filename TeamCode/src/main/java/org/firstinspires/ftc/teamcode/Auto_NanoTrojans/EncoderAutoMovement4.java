@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.controls_MC;
 import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_MC;
 import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_base_NanoTrojans;
 
@@ -25,6 +26,7 @@ public class EncoderAutoMovement4 extends LinearOpMode {
                     (WHEEL_DIAMETER_INCHES * Math.PI);
 
     private resources_MC resources;
+    private controls_MC control;
     private resources_base_NanoTrojans resourcesbase;
 
     private boolean lockhls = true;
@@ -53,6 +55,7 @@ public class EncoderAutoMovement4 extends LinearOpMode {
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         resources = new resources_MC(hardwareMap);
+
         resourcesbase = new resources_base_NanoTrojans(hardwareMap);
 
         waitForStart();
