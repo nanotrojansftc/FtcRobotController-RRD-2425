@@ -60,26 +60,22 @@ public class TeleOpMainMC extends LinearOpMode {
 
         Thread baseControlThread = new Thread(new baseControl());
         // Thread hlsThread = new Thread(new hls());
-        Thread hlsControlThread = new Thread(new hlsControl());
+
         Thread lsControlThread = new Thread(new lsControl());
-        Thread intakeThread = new Thread(new intake());
+
         Thread liftThread = new Thread(new lift());
         Thread armThread = new Thread(new arm());
-        Thread clawThread = new Thread(new claw());
-        Thread comboThread = new Thread(new combo());
+
         //Start 2  threads
         //baseControlThread.start();
 
-        intakeThread.start();
-        hlsControlThread.start();
+
         lsControlThread.start();
 
 
         armThread.start();
         liftThread.start();
-        clawThread.start();
 
-        comboThread.start();
 
         //MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
@@ -137,32 +133,6 @@ public class TeleOpMainMC extends LinearOpMode {
         }//end of run
     }//end of class baseControl
 
-    private class hlsControl implements Runnable {
-        boolean clawClosed = false;
-        //double hspower1 , hspower2;
-
-        @Override
-        public void run() {
-            boolean stop = false;
-            double rpos =0;
-            double lpos = 1;
-
-            double stoppedPower=0;
-            waitForStart();
-            while (!Thread.interrupted() && opModeIsActive()) {
-                //for now to reset stuff
-//                if (gamepad2.dpad_up){
-//                    resources.rhs.setPosition(0);
-//                    resources.lhs.setPosition(1);
-//                }
-                double hlspower = gamepad2.left_stick_y;
-                resources.rhs.setPower(0.5*hlspower);
-                resources.lhs.setPower(0.5*-hlspower);
-
-
-            }//end of while
-        }//end of run
-    }//end of thread horizontal linear slide control
     private class lsControl implements Runnable {
         boolean clawClosed = false;
 
@@ -171,10 +141,14 @@ public class TeleOpMainMC extends LinearOpMode {
 
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
-
+                // LINEAR SLIDES STUFF
                 double lspower = gamepad2.right_stick_y;
                 resources.lsRight.setPower(lspower);
                 resources.lsLeft.setPower(-lspower);
+                // HORIZONTAL CONTROL STUFF
+                double hlspower = gamepad2.left_stick_y;
+                resources.rhs.setPower(0.5*hlspower);
+                resources.lhs.setPower(0.5*-hlspower);
 
 
 
@@ -185,30 +159,7 @@ public class TeleOpMainMC extends LinearOpMode {
 
 
 
-    private class intake implements Runnable {
 
-        @Override
-        public void run() {
-            waitForStart();
-            while (!Thread.interrupted() && opModeIsActive()) {
-//                if (gamepad2.right_trigger>0) {
-//                    resources.intake.setPower(1);
-//                }
-//                if (gamepad2.left_trigger<0) {
-//                    resources.intake.setPower(-1);
-//                } else {
-//                    resources.intake.setPower(0);
-//                }
-                double intake = gamepad2.right_stick_x;
-                resources.intake.setPower(intake);
-
-
-
-
-            }
-
-        }//end of run
-    }//end of thread lscontrol
 
     public class arm implements Runnable{
         @Override
@@ -216,8 +167,8 @@ public class TeleOpMainMC extends LinearOpMode {
 
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
-//                resources.ra.setPosition(0.0);
-//                resources.la.setPosition(1);
+//              ARM STUFF
+
                 if (gamepad2.dpad_up){
                     //resources.ra.setPosition(0.3);
                     //resources.la.setPosition(0.7);
@@ -233,6 +184,22 @@ public class TeleOpMainMC extends LinearOpMode {
                     control.hsretract();
 
                 }
+                // HANG STUFF
+                if(!canNotMoveUp) {
+                    if (gamepad1.left_trigger>0){
+                        control.hangeron();
+                    }
+                    if (gamepad1.right_trigger>0){
+                        control.hangerreverse();
+                    }
+                    else{
+                        control.hangeroff();
+                    }
+
+                }
+                //INTAKE STUFF
+                double intake = gamepad2.right_stick_x;
+                resources.intake.setPower(intake);
 
             }
         }
@@ -245,6 +212,7 @@ public class TeleOpMainMC extends LinearOpMode {
             waitForStart();
 
             while (!Thread.interrupted() && opModeIsActive()) {
+                // INTAKE LIFT STUFF HERE
                 //up
                 if (gamepad2.dpad_left) {
 
@@ -254,6 +222,17 @@ public class TeleOpMainMC extends LinearOpMode {
                 if (gamepad2.dpad_right)/*down*/ {
                 control.intakedown();
                 }
+                // CLAW STUFF
+                if (gamepad2.left_bumper) {
+                    control.openclaw();
+                    //control.openclaw();
+                }
+                //close
+                if (gamepad2.right_bumper) {
+                    control.closeclaw();
+
+
+                }
 
 
             }
@@ -261,74 +240,9 @@ public class TeleOpMainMC extends LinearOpMode {
     }
 
         //claw done
-        public class claw implements Runnable {
-            @Override
-            public void run() {
-
-                waitForStart();
-
-                while (!Thread.interrupted() && opModeIsActive()) {
-                    //open
-                    if (gamepad2.left_bumper) {
-                        control.openclaw();
-                        //control.openclaw();
-                    }
-                    //close
-                    if (gamepad2.right_bumper) {
-                        control.closeclaw();
 
 
-                    }
-                }
-            }
-        }
 
-        public class combo implements Runnable {
-            @Override
-            public void run() {
-                waitForStart();
-                boolean basemoved = false;
-                while (!Thread.interrupted() && opModeIsActive()) {
-                    //if(!basemoved) {
-//                    if (gamepad2.a) {
-//
-//                        for (int i = 0; i < 3; i++) {
-//                            driveControl.driveRobot(0, 1, 0);
-//                        }
-//                        resources.claw.setPosition(0);
-//
-//
-//                        //driveControl.driveRobot(0, 0, 0);
-//                    }
-
-                    //}
-                    // lift arm from down to up
-
-
-                    if(!canNotMoveUp) {
-                        if (gamepad1.left_trigger>0){
-                            control.hangeron();
-                        }
-                        if (gamepad1.right_trigger>0){
-                            control.hangerreverse();
-                        }
-                        else{
-                            control.hangeroff();
-                        }
-
-                    }
-                    // put arm down to pick up from intake
-                    //if gamepad2.dpad_down{
-//                  close claw
-//                  flip arm down
-//                  sleep (1000)
-//                  open claw
-
-//           }
-                }
-
-            }
-        }
 
 
 
