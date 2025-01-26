@@ -71,7 +71,7 @@ public  class talonblue extends LinearOpMode {
                 drive.strafeTiles(4);
                 drive.driveTiles(1);
                 //stop
-                drive.stop();
+                drive.stop(0);
 
 
 

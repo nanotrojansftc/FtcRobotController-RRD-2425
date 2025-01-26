@@ -6,10 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_MC;
 import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_base_NanoTrojans;
-import org.firstinspires.ftc.teamcode.Teleop.TeleOpMainMC;
 
-@Autonomous(name = "Encoder Auto Movement", group = "Linear Opmode")
-public class EncoderAutoMovement extends LinearOpMode {
+@Autonomous(name = "Encoder Auto Movement4", group = "Linear Opmode")
+public class EncoderAutoMovement4 extends LinearOpMode {
 
     // Declare motors
     private DcMotor leftFront;
@@ -60,31 +59,45 @@ public class EncoderAutoMovement extends LinearOpMode {
         while (opModeIsActive() && !isStopRequested()) {
 
             //lock the hls
-            Thread hlsControlLockThread = new Thread(new EncoderAutoMovement.hlsLock());
+            Thread hlsControlLockThread = new Thread(new EncoderAutoMovement4.hlsLock());
             hlsControlLockThread.start();
 
             //blocker up
             resources.blocker.setPosition(0.58);
 
             //close claw
-            //resources.claw.setPosition(0.6);
+            resources.claw.setPosition(0.6);
 
+            //**   strafe to the Left
+            strafe(0.75, 6);
 
             //***  move forward to the cage
             // Drive forward 5 feet (60 inches)
             drive(0.75, 24);
             sleep(1000);
 
-
+            //          arm up
+            resources.ra.setPosition(0.01);
+            resources.la.setPosition(0.01);
+            //wait for arm to go up fully
+            sleep(4000);
 
             //**   move away from the cage
-            drive(0.75,-5);
+            drive(0.75,-3);
             sleep(1000);
+            //open claw
+            resources.claw.setPosition(0.3);
 
+            //**   move away more from cage
+            drive(0.75,-2);
             sleep(500);
 
+            //arm down
+            resources.ra.setPosition(1);
+            resources.la.setPosition(1);
+
             //**   strafe to the right
-            strafe(0.75, -32);
+            strafe(0.75, -38);
 
             sleep(500);
             drive(0.75, 15);
@@ -93,7 +106,7 @@ public class EncoderAutoMovement extends LinearOpMode {
             strafe(0.75,-8);
 
             sleep(500);
-            drive(0.75,-40);
+            drive(0.75,-45);
 
             drive(0.75, 45);
 
@@ -101,19 +114,12 @@ public class EncoderAutoMovement extends LinearOpMode {
             strafe(0.75,-15);
 
             drive(0.75,-45);
-            drive(0.75,40);
+            drive(0.75,30);
 
             //Third Strafe
-//            strafe(0.4, -17);
-//            drive(0.75, -50);
-
-//            resources.hanger.setPower(1);
-//            drive(1,50);
-//            rightTurn(1,-30);
-//            drive(0.75,30);
-//            sleep(1000);
-//            resources.hanger.setPower(0);
-//            requestOpModeStop();
+            strafe(0.75, -17);
+            drive(0.75, -45);
+            requestOpModeStop();
         }
 
 

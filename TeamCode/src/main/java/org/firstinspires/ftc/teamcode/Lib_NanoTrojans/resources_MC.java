@@ -23,6 +23,8 @@ public class resources_MC {
     public Servo ra = null;
     public Servo la = null;
 
+    public DcMotor hanger = null;
+
 
 
     //2 arms servo motors
@@ -51,6 +53,8 @@ public resources_MC(HardwareMap hardwareMap){
 
     la  = hardwareMap.servo.get("leftarmservo");
     ra = hardwareMap.servo.get("rightarmservo");
+
+    hanger = hardwareMap.dcMotor.get("hang");
 
 
 

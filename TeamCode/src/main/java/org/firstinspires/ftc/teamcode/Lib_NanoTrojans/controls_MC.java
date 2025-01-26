@@ -16,8 +16,8 @@ public class controls_MC {
     //private DcMotor intake = null;
     public DcMotor lsRight = null;
     public DcMotor lsLeft = null;
-    public Servo rhs = null;
-    public Servo lhs = null;
+    public CRServo rhs = null;
+    public CRServo lhs = null;
 
     public DcMotor intake = null;
 
@@ -33,7 +33,7 @@ public class controls_MC {
     //private CRServo robotLift = null;
 
 
-    public controls_MC(DcMotor lsR, DcMotor lsL, Servo lhorizontal, Servo rhorizontal, DcMotor intake
+    public controls_MC(DcMotor lsR, DcMotor lsL, CRServo lhorizontal, CRServo rhorizontal, DcMotor intake
                        , Servo blocker, Servo ril, Servo lil, Servo claw, Servo ra, Servo la)
     {
         //intake= intak;
@@ -54,6 +54,6 @@ public class controls_MC {
     public void openclaw()
     {
         //for the claw, it is a regular motor so you set positions; you just have to keep tweaking the code and test out positions that you input.
-        claw.setPosition(0);
+        claw.setPosition(0.3);
     }
     }

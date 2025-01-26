@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -127,6 +129,8 @@ public class TeleOpMainMC extends LinearOpMode {
                Drawing.drawRobot(packet.fieldOverlay(), drive.pose);
                FtcDashboard.getInstance().sendTelemetryPacket(packet);
 
+               resources.rhs.setPower(-0.5);
+               resources.lhs.setPower(0.5);
            }
 
         }//end of run
@@ -183,10 +187,10 @@ public class TeleOpMainMC extends LinearOpMode {
 //                    resources.la.setPosition(0.4);
 //                    sleep(500);
 //                    resources.claw.setPosition(0);
-                    resourcesbase.leftBack.setPower(1);
+                    resourcesbase.leftBack.setPower(-1);
                     resourcesbase.rightBack.setPower(-1);
                     resourcesbase.leftFront.setPower(1);
-                    resourcesbase.rightFront.setPower(-1);
+                    resourcesbase.rightFront.setPower(1);
                     sleep(1000);
                     resourcesbase.leftBack.setPower(0);
                     resourcesbase.rightBack.setPower(0);
@@ -210,14 +214,18 @@ public class TeleOpMainMC extends LinearOpMode {
         public void run() {
             waitForStart();
             while (!Thread.interrupted() && opModeIsActive()) {
-                if (gamepad2.right_trigger > 0) {
-                    resources.intake.setPower(100);
-                }
-                if (gamepad2.left_trigger > 0) {
-                    resources.intake.setPower(-1);
-                } else {
-                    resources.intake.setPower(0);
-                }
+//                if (gamepad2.right_trigger>0) {
+//                    resources.intake.setPower(1);
+//                }
+//                if (gamepad2.left_trigger<0) {
+//                    resources.intake.setPower(-1);
+//                } else {
+//                    resources.intake.setPower(0);
+//                }
+                double intake = gamepad2.right_stick_x;
+                resources.intake.setPower(intake);
+
+
 
 
             }
@@ -233,58 +241,30 @@ public class TeleOpMainMC extends LinearOpMode {
             while (!Thread.interrupted() && opModeIsActive()) {
 //                resources.ra.setPosition(0.0);
 //                resources.la.setPosition(1);
-                if (gamepad2.dpad_down  && !canNotMoveUp){
+                if (gamepad2.dpad_up  && !canNotMoveUp){
                     //resources.ra.setPosition(0.3);
                     //resources.la.setPosition(0.7);
-                    resources.ra.setPosition(1);
+                    resources.ra.setPosition(0.01);
+                    resources.la.setPosition(0.2);
+                }
+                //
+                if (gamepad2.dpad_down){
+                    resources.claw.setPosition(0.6);
+
+
+                    resources.ra.setPosition(0.9);
                     resources.la.setPosition(1);
 
                     resources.rhs.setPower(0.8);
                     resources.lhs.setPower(-0.8);
+                    resources.claw.setPosition(0.3);
                 }
-                //down
-                if (gamepad2.dpad_up){
-                    resources.ra.setPosition(0.3);
-                    resources.la.setPosition(0.3);
-                }
-//                if (gamepad2.x){
-////                    resources.ra.setPosition(0.6);
-////                    resources.la.setPosition(0.4);
-////                    sleep(500);
-////                    resources.claw.setPosition(0);
-//                    resourcesbase.leftBack.setPower(1);
-//                    resourcesbase.rightBack.setPower(-1);
-//                    resourcesbase.leftFront.setPower(1);
-//                    resourcesbase.rightFront.setPower(-1);
-//                    sleep(1000);
-//                    resourcesbase.leftBack.setPower(0);
-//                    resourcesbase.rightBack.setPower(0);
-//                    resourcesbase.leftFront.setPower(0);
-//                    resourcesbase.rightFront.setPower(0);
-//
-//
-//                }
-//                if (gamepad2.y){
-////                    resources.ra.setPosition(0);
-////                    resources.la.setPosition(1);
-//                    resources.lsLeft.setPower(-1);
-//                    resources.lsRight.setPower(1);
-//                    sleep(5000);
-////                    resources.lsLeft.setPower(1);
-////                    resources.lsRight.setPower(-1);
-////                    sleep(1000);
-//                    resources.lsLeft.setPower(0);
-//                    resources.lsRight.setPower(0);
-//                }
-
-
-
 
             }
         }
     }
     //done with intake lift
-    public class lift implements Runnable{
+    public class lift implements Runnable {
         @Override
         public void run() {
 
@@ -295,11 +275,12 @@ public class TeleOpMainMC extends LinearOpMode {
                 if (gamepad2.dpad_left) {
 
 
-                    resources.blocker.setPosition(0.5);
+                    resources.blocker.setPosition(0.58);
 
-                    resources.ril.setPosition(0);
-                    resources.lil.setPosition(1);                }
-                if(gamepad2.dpad_right)/*down*/{
+                    resources.ril.setPosition(0.4);
+                    resources.lil.setPosition(0.6);
+                }
+                if (gamepad2.dpad_right)/*down*/ {
 //                    resources.ril.setPosition(0.4);
 //                    resources.lil.setPosition(0.7);
                     resources.blocker.setPosition(1);
@@ -309,77 +290,102 @@ public class TeleOpMainMC extends LinearOpMode {
                 }
 
 
-
             }
         }
     }
 
+        //claw done
+        public class claw implements Runnable {
+            @Override
+            public void run() {
 
-//claw done
-    public class claw implements Runnable{
-        @Override
-        public void run() {
+                waitForStart();
 
-            waitForStart();
-
-            while (!Thread.interrupted() && opModeIsActive()) {
-                //open
-                if (gamepad2.left_bumper) {
-                    resources.claw.setPosition(0);
-                    //control.openclaw();
-                }
-                //close
-                if (gamepad2.right_bumper) {
-                    resources.claw.setPosition(0.6);
-                    //control.closeclaw();
-                    //sleep(200);
-                    //resources.rhs.setPower(0.2);
-                    //resources.lhs.setPower(-0.2);
+                while (!Thread.interrupted() && opModeIsActive()) {
+                    //open
+                    if (gamepad2.left_bumper) {
+                        resources.claw.setPosition(0.3);
+                        //control.openclaw();
+                    }
+                    //close
+                    if (gamepad2.right_bumper) {
+                        resources.claw.setPosition(0.7);
+                        //control.closeclaw();
+                        //sleep(200);
+                        //resources.rhs.setPower(0.2);
+                        //resources.lhs.setPower(-0.2);
 //sleep(50);
-                    resources.rhs.setPower(-0.8);
-                    resources.lhs.setPower(0.8);
-                    //resources.rhs.setPower(-0.1);
-                    //resources.lhs.setPower(0.1);
-                    //resources.rhs.setPower(-0.1);
-                    //resources.lhs.setPower(0.1);
+                        resources.rhs.setPower(-0.8);
+                        resources.lhs.setPower(0.8);
+                        //resources.rhs.setPower(-0.1);
+                        //resources.lhs.setPower(0.1);
+                        //resources.rhs.setPower(-0.1);
+                        //resources.lhs.setPower(0.1);
 
+                    }
                 }
             }
         }
-    }
 
-    public class combo implements Runnable{
-        @Override
-        public void run(){
-            waitForStart();
+        public class combo implements Runnable {
+            @Override
+            public void run() {
+                waitForStart();
+                boolean basemoved = false;
+                while (!Thread.interrupted() && opModeIsActive()) {
+                    //if(!basemoved) {
+//                    if (gamepad2.a) {
+//
+//                        for (int i = 0; i < 3; i++) {
+//                            driveControl.driveRobot(0, 1, 0);
+//                        }
+//                        resources.claw.setPosition(0);
+//
+//
+//                        //driveControl.driveRobot(0, 0, 0);
+//                    }
 
-           while (!Thread.interrupted() && opModeIsActive()) {
-               // lift arm from down to up
-               if (gamepad2.x){
+                    //}
+                    // lift arm from down to up
+                    if (gamepad2.x) {
 //                  close claw
-               resources.claw.setPosition(0.6);
-               resources.rhs.setPower(-0.8);
-               resources.lhs.setPower(0.8);
+                        resources.claw.setPosition(0.6);
+                        resources.rhs.setPower(-0.8);
+                        resources.lhs.setPower(0.8);
 //                  flip arm
-               resources.ra.setPosition(0.1);
-               resources.la.setPosition(0.1);
+                        resources.ra.setPosition(0.1);
+                        resources.la.setPosition(0.1);
 //                  sleep (1000)
 //                  open claw
 
 
-           }
-               // put arm down to pick up from intake
-               //if gamepad2.dpad_down{
+                    }
+
+                    if(!canNotMoveUp) {
+                        if (gamepad1.left_trigger>0){
+                            resources.hanger.setPower(1);
+                        }
+                        if (gamepad1.right_trigger>0){
+                            resources.hanger.setPower(-1);
+                        }
+                        else{
+                            resources.hanger.setPower(0);
+                        }
+
+                    }
+                    // put arm down to pick up from intake
+                    //if gamepad2.dpad_down{
 //                  close claw
 //                  flip arm down
 //                  sleep (1000)
 //                  open claw
 
 //           }
-            }
+                }
 
+            }
         }
-    }
+
 
 
 }//end of big class

@@ -3,8 +3,35 @@ package org.firstinspires.ftc.teamcode.Auto_NanoTrojans;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "Encoder Auto Movement 2", group = "Linear Opmode")
+import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_MC;
+import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_base_NanoTrojans;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.Robot.Drive;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.PoseVelocity2d;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.Drawing;
+import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.DriveControl_NanoTorjan;
+import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.controls_MC;
+import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_MC;
+import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_base_NanoTrojans;
+import org.firstinspires.ftc.teamcode.MecanumDrive;
+
+
+@Autonomous(name = "Encoder Auto Movement2", group = "Linear Opmode")
 public class EncoderAutoMovement2 extends LinearOpMode {
 
     // Declare motors
@@ -20,6 +47,9 @@ public class EncoderAutoMovement2 extends LinearOpMode {
     static final double COUNTS_PER_INCH =
             (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                     (WHEEL_DIAMETER_INCHES * Math.PI);
+
+    private resources_MC resources;
+    private resources_base_NanoTrojans resourcesbase;
 
     @Override
     public void runOpMode() {
@@ -44,41 +74,278 @@ public class EncoderAutoMovement2 extends LinearOpMode {
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        resources = new resources_MC(hardwareMap);
+        resourcesbase = new resources_base_NanoTrojans(hardwareMap);
+
         waitForStart();
+        while (opModeIsActive() && !isStopRequested())
+        {
+            //close claw
+            resources.claw.setPosition(0.6);
+            resources.rhs.setPower(0.1);
+            resources.lhs.setPower(-0.1);
+            //retract horizontal linear slides
+//            resources.rhs.setPower(-0.5);
+//            resources.lhs.setPower(0.5);
+            //blocker up
+            resources.blocker.setPosition(0.58);
+            //resources.intake.setPower(1);
+//
+            //resources.claw.setPosition(0.6);
+//          drive forward and strafe to basket
+            drive(0.75,-9.5);
+            strafe(0.75,-28);
+            strafe(0.3,-7);
+//            resources.rhs.setPower(1);
+//            resources.lhs.setPower(-1);
+            sleep(500);
+//          linear slide give power
+            resources.lsRight.setPower(-1);
+            resources.lsLeft.setPower(1);
+            //wait for slides to go up fully
+
+
+            sleep(2000);
+            // stop power
+            resources.lsRight.setPower(0);
+            resources.lsLeft.setPower(0);
+
+            //try to stall linear slides
+            resources.lsRight.setPower(-0.1);
+            resources.lsLeft.setPower(0.1);
+
+
+//          arm up
+            resources.ra.setPosition(0.01);
+            resources.la.setPosition(0.2);
+            //wait for arm to go up fully
+
+            sleep(2000);
+
+//            resources.lsRight.setPower(0);
+//            resources.lsLeft.setPower(0);
+
+            //open claw
+            resources.claw.setPosition(0.3);
+            sleep(1000);
+            //arm down
+            resources.ra.setPosition(1);
+            resources.la.setPosition(1);
+            // linear slides down
+
+            resources.lsRight.setPower(1);
+            resources.lsLeft.setPower(-1);
+            sleep(2000);
+            resources.lsRight.setPower(0);
+            resources.lsLeft.setPower(0);
+            // give power to intake
+
+            resources.intake.setPower(0.65);
+            // put intake down
+            resources.ril.setPosition(0.95);
+            resources.lil.setPosition(0.0);
+            //blocker up
+            resources.blocker.setPosition(1);
+            // strafe for adjust
+            strafe(0.75,15.5);
+            drive(0.5,-6.5);
+
+            //push horizontal linear slides forward
+            resources.rhs.setPower(-0.3);
+            resources.lhs.setPower(0.3);
+//            sleep(500);
+//            resources.rhs.setPower(0);
+//            resources.lhs.setPower(0);
+//            resources.rhs.setPower(-0.5);
+//            resources.lhs.setPower(0.5);
+
+
+            //drive(0.5,-20);
+            sleep(1500);
+
+            // stop intake
+
+            // retract horizontal linear slides again
+
+            resources.rhs.setPower(0.5);
+            resources.lhs.setPower(-5);
+
+            // wait a bit
+            sleep(1000);
+
+
+            //put intake up
+            resources.ril.setPosition(0.4);
+            resources.lil.setPosition(0.6);
+
+            // lower blocker
+            resources.blocker.setPosition(0.58);
+            resources.intake.setPower(0);
+            sleep(1000);
+            resources.claw.setPosition(0.6);
+            // move back towards the basket
+
+           // drive(1,25);
+            strafe(1, -14);
+            drive(0.75,8.5);
+            strafe(0.15, -5);
+
+
+            //repeat scoring
+
+
+
+
+
+            sleep(500);
+//          linear slide give power
+            resources.lsRight.setPower(-1);
+            resources.lsLeft.setPower(1);
+            //wait for slides to go up fully
+
+
+            sleep(2000);
+            // stop power
+            resources.lsRight.setPower(0);
+            resources.lsLeft.setPower(0);
+
+            //try to stall linear slides
+            resources.lsRight.setPower(-0.1);
+            resources.lsLeft.setPower(0.1);
+
+
+//          arm up
+            resources.ra.setPosition(0.01);
+            resources.la.setPosition(0.2);
+            //wait for arm to go up fully
+
+            sleep(2000);
+
+//            resources.lsRight.setPower(0);
+//            resources.lsLeft.setPower(0);
+
+            //open claw
+            resources.claw.setPosition(0.3);
+            sleep(500);
+            //arm down
+            resources.ra.setPosition(1);
+            resources.la.setPosition(1);
+            // linear slides down
+
+            resources.lsRight.setPower(1);
+            resources.lsLeft.setPower(-1);
+            sleep(2000);
+            resources.lsRight.setPower(0);
+            resources.lsLeft.setPower(0);
+
+            // THIRD RECTANGULAR PRISM/SAMPLES
+//            strafe(0.75,5);
+//            drive(0.75,-5);
+//            resources.intake.setPower(0.75);
+//
+//            //intake down
+//            resources.ril.setPosition(0.95);
+//            resources.lil.setPosition(0.0);
+//
+//
+//            //extend horizontal linear slides
+//            resources.rhs.setPower(-0.175);
+//            resources.lhs.setPower(0.175);
+//            sleep(800);
+////           retract horizontal linear slides again
+//
+//            resources.rhs.setPower(1);
+//            resources.lhs.setPower(-1);
+//
+//            // wait a bit
+//            sleep(1000);
+//
+//
+//            //put intake up
+//            resources.ril.setPosition(0.4);
+//            resources.lil.setPosition(0.6);
+//
+//            // lower blocker
+//            resources.blocker.setPosition(0.58);
+//            resources.intake.setPower(0);
+//            resources.claw.setPosition(0.6);
+//            drive(1,5);
+//            // move back towards the basket
+//
+//
+//            //repeat scoring
+//
+//
+//
+//
+//
+//            sleep(500);
+////          linear slide give power
+//            resources.lsRight.setPower(-1);
+//            resources.lsLeft.setPower(1);
+//            //wait for slides to go up fully
+//
+//
+//            sleep(2000);
+//            // stop power
+//            resources.lsRight.setPower(0);
+//            resources.lsLeft.setPower(0);
+//
+//            //try to stall linear slides
+//            resources.lsRight.setPower(-0.1);
+//            resources.lsLeft.setPower(0.1);
+//
+//
+////          arm up
+//            resources.ra.setPosition(0.1);
+//            resources.la.setPosition(0.1);
+//            //wait for arm to go up fully
+//
+//            sleep(2000);
+//
+////            resources.lsRight.setPower(0);
+////            resources.lsLeft.setPower(0);
+//
+//            //open claw
+//            resources.claw.setPosition(0.3);
+//            sleep(500);
+//            //arm down
+//            resources.ra.setPosition(1);
+//            resources.la.setPosition(1);
+//            // linear slides down
+//
+//            resources.lsRight.setPower(1);
+//            resources.lsLeft.setPower(-1);
+//            sleep(2000);
+//            resources.lsRight.setPower(0);
+//            resources.lsLeft.setPower(0);
+            resources.hanger.setPower(1);
+            strafe(1,10);
+            drive(1,-40);
+            leftTurn(1,30);
+            drive(0.75,30);
+            sleep(1000);
+            resources.hanger.setPower(0);
+
+//
+            isStopRequested();
+            requestOpModeStop();
+
+
+
+
+
+
+
+
+        }
+
+
+
+
 
         // Drive forward 5 feet (60 inches)
-        drive(0.5, 32);
 
-//        sleep(500);
-//        strafe(0.5, -25);
-//
-//        sleep(500);
-//        drive(0.5, 30);
-//
-//        sleep(500);
-//        strafe(0.5,-12);
-//
-//        sleep(500);
-//        drive(0.5,-50);
-//
-////        sleep(1000);
-////        drive(1, -25);
-//
-//        drive(0.5, 50);
-//
-//        strafe(0.5,-10);
-//
-//        drive(0.5,-50);
-     //   drive(0,0);
-
-//        strafe(-1, 15);
-//        strafe(1, 15);
-
-        // Strafe right 0.5 feet (6 inches)
-//        strafe(0.5, 6);
-//
-//        // Drive backward 5 feet (60 inches)
-//        drive(0.5, -60);
     }
 
     /**
