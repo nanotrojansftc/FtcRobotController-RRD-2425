@@ -30,6 +30,7 @@ public class controls_MC {
     public Servo claw = null;
     public Servo ra = null;
     public Servo la = null;
+    public DcMotor hanger = null;
     //private CRServo robotLift = null;
 
 
@@ -129,7 +130,15 @@ public class controls_MC {
     }
     public void hangeron()
     {
-
+        hanger.setPower(1);
+    }
+    public void hangeroff()
+    {
+        hanger.setPower(0);
+    }
+    public void hangerreverse()
+    {
+        hanger.setPower(-1);
     }
 
 

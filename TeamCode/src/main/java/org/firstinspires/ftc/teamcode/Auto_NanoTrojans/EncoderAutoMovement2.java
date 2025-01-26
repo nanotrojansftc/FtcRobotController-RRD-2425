@@ -85,14 +85,13 @@ public class EncoderAutoMovement2 extends LinearOpMode {
 
         {
             //close claw
-            resources.claw.setPosition(0.6);
-            resources.rhs.setPower(0.1);
-            resources.lhs.setPower(-0.1);
+            control.closeclaw();
+            control.hsretract();
             //retract horizontal linear slides
 //            resources.rhs.setPower(-0.5);
 //            resources.lhs.setPower(0.5);
             //blocker up
-            resources.blocker.setPosition(0.58);
+            control.intakeup();
             //resources.intake.setPower(1);
 //
             //resources.claw.setPosition(0.6);
@@ -104,24 +103,20 @@ public class EncoderAutoMovement2 extends LinearOpMode {
 //            resources.lhs.setPower(-1);
             sleep(500);
 //          linear slide give power
-            resources.lsRight.setPower(-1);
-            resources.lsLeft.setPower(1);
+            control.lson();
             //wait for slides to go up fully
 
 
             sleep(2000);
             // stop power
-            resources.lsRight.setPower(0);
-            resources.lsLeft.setPower(0);
+            control.lsoff();
 
             //try to stall linear slides
-            resources.lsRight.setPower(-0.1);
-            resources.lsLeft.setPower(0.1);
+            control.lsstall();
 
 
 //          arm up
-            resources.ra.setPosition(0.01);
-            resources.la.setPosition(0.2);
+            control.armup();
             //wait for arm to go up fully
 
             sleep(2000);
@@ -130,21 +125,18 @@ public class EncoderAutoMovement2 extends LinearOpMode {
 //            resources.lsLeft.setPower(0);
 
             //open claw
-            resources.claw.setPosition(0.3);
+            control.openclaw();
             sleep(1000);
             //arm down
-            resources.ra.setPosition(1);
-            resources.la.setPosition(1);
+            control.armdown();
             // linear slides down
 
-            resources.lsRight.setPower(1);
-            resources.lsLeft.setPower(-1);
+            control.lsreverse();
             sleep(2000);
-            resources.lsRight.setPower(0);
-            resources.lsLeft.setPower(0);
+            control.lsoff();
             // give power to intake
 
-            resources.intake.setPower(0.65);
+            control.intakehalf();
             // put intake down
             control.intakedown();
             //blocker up
@@ -312,13 +304,13 @@ public class EncoderAutoMovement2 extends LinearOpMode {
 //            sleep(2000);
 //            resources.lsRight.setPower(0);
 //            resources.lsLeft.setPower(0);
-            resources.hanger.setPower(1);
+            control.hangeron();
             strafe(1,10);
             drive(1,-40);
             leftTurn(1,30);
             drive(0.75,30);
             sleep(1000);
-            resources.hanger.setPower(0);
+            control.hangeroff();
 
 //
             isStopRequested();

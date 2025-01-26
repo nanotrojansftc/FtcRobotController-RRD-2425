@@ -249,18 +249,10 @@ public class TeleOpMainMC extends LinearOpMode {
                 if (gamepad2.dpad_left) {
 
 
-                    resources.blocker.setPosition(0.58);
-
-                    resources.ril.setPosition(0.4);
-                    resources.lil.setPosition(0.6);
+                    control.intakeup();
                 }
                 if (gamepad2.dpad_right)/*down*/ {
-//                    resources.ril.setPosition(0.4);
-//                    resources.lil.setPosition(0.7);
-                    resources.blocker.setPosition(1);
-
-                    resources.ril.setPosition(0.95);
-                    resources.lil.setPosition(0.0);
+                control.intakedown();
                 }
 
 
@@ -315,13 +307,13 @@ public class TeleOpMainMC extends LinearOpMode {
 
                     if(!canNotMoveUp) {
                         if (gamepad1.left_trigger>0){
-                            resources.hanger.setPower(1);
+                            control.hangeron();
                         }
                         if (gamepad1.right_trigger>0){
-                            resources.hanger.setPower(-1);
+                            control.hangerreverse();
                         }
                         else{
-                            resources.hanger.setPower(0);
+                            control.hangeroff();
                         }
 
                     }

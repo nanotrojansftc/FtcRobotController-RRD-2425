@@ -84,13 +84,13 @@ public class EncoderAutoMovement3 extends LinearOpMode {
         {
             //*************************  drop the first one into basket *************//
             //close claw
-            resources.claw.setPosition(0.6);
+            control.closeclaw();
 
             //lock hls use a seperate thread
             lockHls = true;
 
             //lower blocker
-            resources.blocker.setPosition(0.58);
+            control.intakeup();
 
             //drive forward and strafe to basket
             drive(0.75,-10);
@@ -104,19 +104,16 @@ public class EncoderAutoMovement3 extends LinearOpMode {
             sleep(1600);
 
             // arm up
-            resources.ra.setPosition(0.01);
-            //resources.la.setPosition(0.2);
-            resources.la.setPosition(0.01);
+            control.armup();
             //wait for arm to go up fully
             sleep(2000);
 
             //open claw
-            resources.claw.setPosition(0.3);
+            control.openclaw();
             sleep(300);
 
             //arm down
-            resources.ra.setPosition(1);
-            resources.la.setPosition(1);
+            control.armdown();
             sleep(300);
 
             //stop LS move up
@@ -133,24 +130,21 @@ public class EncoderAutoMovement3 extends LinearOpMode {
             lockHls = false;
 
             // put intake down
-            resources.ril.setPosition(0.95);
-            resources.lil.setPosition(0.0);
+            control.intakedown();
             // strafe right for adjust
             strafe(0.75,16);
             drive(0.5,-4);
 
             //******* Let's start to pick up the second pixel  ************//
             //push horizontal linear slides forward
-            resources.rhs.setPower(-0.205);
-            resources.lhs.setPower(0.205);
+            control.hsextend();
             //run intake in different thread
             runIntake = true;   //run the intake then move out linear slide
             //drive(0.5,-20);
             sleep(1500);
 
             // retract horizontal linear slides again
-            resources.rhs.setPower(1);
-            resources.lhs.setPower(-1);
+            control.hsretract();
             //stop intake thread
             runIntake = false;
             // wait a bit
@@ -160,24 +154,22 @@ public class EncoderAutoMovement3 extends LinearOpMode {
             resources.blocker.setPosition(0.58);
 
             //give hs a little power
-            resources.rhs.setPower(0.1);
-            resources.lhs.setPower(-0.1);
+            control.hsretract();
 
             //put intake up
-            resources.ril.setPosition(0.4);
-            resources.lil.setPosition(0.6);
+            control.intakeup();
             // wait a bit
             sleep(200);
 
             //run a litter bit intake
-            resources.intake.setPower(0.5);
+            control.intakehalf();
             lockHls = true;
             //sleep(500);
-            resources.intake.setPower(0);
+            control.intakeoff();
             sleep (300);
 
             //close claw
-            resources.claw.setPosition(0.6);
+            control.closeclaw();
             lockHls = false;
 
             //*********** finish picked up the second pixel ***********//
@@ -197,18 +189,16 @@ public class EncoderAutoMovement3 extends LinearOpMode {
             moveLsUp = false;
 
             // arm up for the second pixel
-            resources.ra.setPosition(0.01);
-            resources.la.setPosition(0.01);
+            control.armup();
             //wait for arm to go up fully
             sleep(2000);
 
             //open claw
-            resources.claw.setPosition(0.3);
+            control.openclaw();
             sleep(300);
 
             //arm down
-            resources.ra.setPosition(1);
-            resources.la.setPosition(1);
+            control.armdown();
 
             sleep(300);
 
@@ -226,15 +216,13 @@ public class EncoderAutoMovement3 extends LinearOpMode {
             //drive(0.75,-5);
             
             // put intake down
-            resources.ril.setPosition(0.95);
-            resources.lil.setPosition(0.0);
+            control.intakedown();
 
             //******* Let's start to pick up a pixel  ************//
 
 
             //push horizontal linear slides forward
-            resources.rhs.setPower(-0.275);
-            resources.lhs.setPower(0.275);
+            control.hsextend();
 
             //run intake in different thread
             runIntake = true;   //run the intake then move out linear slide
@@ -243,8 +231,7 @@ public class EncoderAutoMovement3 extends LinearOpMode {
             sleep(1500);
 
             // retract horizontal linear slides again
-            resources.rhs.setPower(1);
-            resources.lhs.setPower(-1);
+            control.hsretract();
 
             //stop intake thread
             runIntake = false;
@@ -257,24 +244,22 @@ public class EncoderAutoMovement3 extends LinearOpMode {
             resources.blocker.setPosition(0.58);
 
             //keep hls locked
-            resources.rhs.setPower(0.1);
-            resources.lhs.setPower(-0.1);
+
 
             //put intake up
-            resources.ril.setPosition(0.4);
-            resources.lil.setPosition(0.6);
+            control.intakeup();
             // wait a bit
             sleep(500);
 
             //run a litter bit intake
-            resources.intake.setPower(0.5);
+            control.intakehalf();
             lockHls = true;
             sleep(500);
-            resources.intake.setPower(0);
+            control.intakeoff();
             sleep (300);
 
             //close claw
-            resources.claw.setPosition(0.6);
+            control.closeclaw();
             lockHls = false;
 
             //*********** finish picked up the Third pixel ***********//
@@ -291,17 +276,15 @@ public class EncoderAutoMovement3 extends LinearOpMode {
             moveLsUp = false;
 
 //          arm up
-            resources.ra.setPosition(0.01);
-            resources.la.setPosition(0.2);
+            control.armup();
             //wait for arm to go up fully
             sleep(2000);
 
             //open claw
-            resources.claw.setPosition(0.3);
+            control.openclaw();
             sleep(500);
             //arm down
-            resources.ra.setPosition(1);
-            resources.la.setPosition(1);
+            control.armdown();
             // linear slides down
 
             //moveLsUp = false;
