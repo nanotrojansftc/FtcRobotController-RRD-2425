@@ -18,8 +18,9 @@ public  class NT_Test extends LinearOpMode {
 
         waitForStart();
         Drive drive = new Drive(hardwareMap);
+        boolean stop = false;
 
-        while (opModeIsActive() && !isStopRequested()) {
+        while (opModeIsActive() && !isStopRequested() && !stop) {
 
                 drive.driveTiles(1);
                 drive.setRotateDegrees(90);
@@ -30,7 +31,7 @@ public  class NT_Test extends LinearOpMode {
 //                drive.driveTiles(6);
 //                drive.driveTiles(-1);
 
-
+                  stop = true;
 
 
         }

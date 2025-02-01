@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
-@TeleOp(name="opMode", group="Linear OpMode")
+@TeleOp(name="TestopMode", group="Linear OpMode")
 public class testOpMode extends LinearOpMode {
     static final int LEFT_EXTENDER_ENDSTOP = 1695;
     static final int RIGHT_EXTENDER_ENDSTOP = 1695;

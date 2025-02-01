@@ -45,29 +45,44 @@ public class Drive{
        dcMotorB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        dcMotorD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        dcMotorC.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-       dcMotorA.setTargetPosition((int) (-993 * Tiles));
-       dcMotorB.setTargetPosition((int) (-1044 * Tiles));
-       dcMotorC.setTargetPosition((int) (-1037 * Tiles));
-       dcMotorD.setTargetPosition((int) (-1061 * Tiles));
+//       dcMotorA.setTargetPosition((int) (-993 * Tiles));
+//       dcMotorB.setTargetPosition((int) (-1044 * Tiles));
+//       dcMotorC.setTargetPosition((int) (-1037 * Tiles));
+//       dcMotorD.setTargetPosition((int) (-1061 * Tiles));
+       dcMotorA.setTargetPosition((int) (-700 * Tiles));
+       dcMotorB.setTargetPosition((int) (-700 * Tiles));
+       dcMotorC.setTargetPosition((int) (-700 * Tiles));
+       dcMotorD.setTargetPosition((int) (-700 * Tiles));
        dcMotorA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorC.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        dcMotorD.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-       dcMotorA.setPower(.75);
-       dcMotorB.setPower(.75);
-       dcMotorC.setPower(.75);
-       dcMotorD.setPower(.75);
-       sleep(1500);
+       dcMotorA.setPower(.60);
+       dcMotorB.setPower(.60);
+       dcMotorC.setPower(.60);
+       dcMotorD.setPower(.60);
+       sleep(1000);
+       dcMotorA.setPower(0);
+       dcMotorB.setPower(0);
+       dcMotorC.setPower(0);
+       dcMotorD.setPower(0);
+       sleep(500);
+
    }
    public void setRotateDegrees(double Deg) {
        dcMotorA.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        dcMotorB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        dcMotorD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        dcMotorC.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-       dcMotorA.setTargetPosition((int) (9.5 * Deg));
-       dcMotorB.setTargetPosition((int) (10.36 * Deg));
-       dcMotorC.setTargetPosition((int) (-11.3 * Deg));
-       dcMotorD.setTargetPosition((int) (-10.6 * Deg));
+       //original
+//       dcMotorA.setTargetPosition((int) (9.5 * Deg));
+//       dcMotorB.setTargetPosition((int) (10.36 * Deg));
+//       dcMotorC.setTargetPosition((int) (-11.3 * Deg));
+//       dcMotorD.setTargetPosition((int) (-10.6 * Deg));
+       dcMotorA.setTargetPosition((int) (7 * Deg));
+       dcMotorB.setTargetPosition((int) (7.0 * Deg));
+       dcMotorC.setTargetPosition((int) (-7 * Deg));
+       dcMotorD.setTargetPosition((int) (-7 * Deg));
        dcMotorA.setPower(.75);
        dcMotorB.setPower(.75);
        dcMotorC.setPower(.75);
