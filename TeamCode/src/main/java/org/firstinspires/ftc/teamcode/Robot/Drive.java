@@ -31,10 +31,10 @@ public class Drive{
                 dcMotorB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 dcMotorC.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 dcMotorD.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                dcMotorA.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                dcMotorB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                dcMotorC.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                dcMotorD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//                dcMotorA.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//                dcMotorB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//                dcMotorC.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//                dcMotorD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //                dcMotorE = hardwareMap.get(DcMotor.class, "leftExtender");
 //                dcMotorF = hardwareMap.get(DcMotor.class, "rightExtender");
                 runTime.reset();
@@ -129,6 +129,8 @@ public class Drive{
 
 
     }
+
+
 
 
 }

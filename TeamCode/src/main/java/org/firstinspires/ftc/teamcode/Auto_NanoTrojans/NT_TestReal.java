@@ -3,36 +3,14 @@ package org.firstinspires.ftc.teamcode.Auto_NanoTrojans;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_MC;
-import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_base_NanoTrojans;
-
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.teamcode.Robot.Drive;
-
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.PoseVelocity2d;
-import com.acmerobotics.roadrunner.Vector2d;
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import org.firstinspires.ftc.teamcode.Drawing;
-import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.DriveControl_NanoTorjan;
 import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.controls_MC;
 import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_MC;
 import org.firstinspires.ftc.teamcode.Lib_NanoTrojans.resources_base_NanoTrojans;
-import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 
-@Autonomous(name = "Encoder Auto Movement2", group = "Linear Opmode")
-public class EncoderAutoMovement2 extends LinearOpMode {
+@Autonomous(name = "NT_TestReal", group = "Linear Opmode")
+public class NT_TestReal extends LinearOpMode {
 
     // Declare motors
     private DcMotor leftFront;
@@ -61,8 +39,9 @@ public class EncoderAutoMovement2 extends LinearOpMode {
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
         // Set motor directions
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        //leftFront.setDirection(DcMotor.Direction.REVERSE);
         leftBack.setDirection(DcMotor.Direction.REVERSE);
+        rightBack.setDirection(DcMotor.Direction.REVERSE);
 
         // Reset encoders and set to RUN_USING_ENCODER mode
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -75,178 +54,32 @@ public class EncoderAutoMovement2 extends LinearOpMode {
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        resources = new resources_MC(hardwareMap);
+        //resources = new resources_MC(hardwareMap);
         resourcesbase = new resources_base_NanoTrojans(hardwareMap);
-        control = new controls_MC(resources.lsRight, resources.lsLeft, resources.lhs, resources.rhs, resources.intake
-                , resources.blocker, resources.ril, resources.lil, resources.claw, resources.ra, resources.la, resources.hanger, resources.backclaw);
-
+           boolean stop = false;
         waitForStart();
-        while (opModeIsActive() && !isStopRequested())
+        while (opModeIsActive() && !isStopRequested() && !stop)
 
         {
-            //close claw
-            control.closeclaw();
-            control.hsretract();
-            //retract horizontal linear slides
-//            resources.rhs.setPower(-0.5);
-//            resources.lhs.setPower(0.5);
-            //blocker up
-            control.intakeup();
-            //resources.intake.setPower(1);
-//
-            //resources.claw.setPosition(0.6);
+
 //          drive forward and strafe to basket
-            drive(0.75,-7);
-            sleep(500);
-            strafe(0.75,-15);
-            strafe(0.1,-7);
-//            resources.rhs.setPower(1);
-//            resources.lhs.setPower(-1);
-            sleep(500);
-//          linear slide give power
-            control.lson();
-            //wait for slides to go up fully
-
-
+            drive(0.75,-9.5);
             sleep(2000);
-            // stop power
-            control.lsoff();
-
-            //try to stall linear slides
-            control.lsstall();
-
-
-//          arm up
-            control.armup();
-            //wait for arm to go up fully
-
+            strafe(0.75,-28);
             sleep(2000);
+            strafe(0.3,-7);
 
-//            resources.lsRight.setPower(0);
-//            resources.lsLeft.setPower(0);
+//            strafe(1,10);
+//            drive(1,-40);
+//            leftTurn(1,30);
+//            drive(0.75,30);
+//            sleep(1000);
 
-            //open claw
-            control.openclaw();
-            sleep(1000);
-            //arm down
-            control.armdown();
-            // linear slides down
-
-            control.lsreverse();
-            sleep(2000);
-            control.lsoff();
-            // give power to intake
-
-            control.intakehalf();
-            // put intake down
-            control.intakedown();
-            //blocker up
-            // strafe for adjust
-            strafe(0.75,12);
-            drive(0.5,-6.5);
-
-            //push horizontal linear slides forward
-            control.hsextend();
-//            sleep(500);
-//            resources.rhs.setPower(0);
-//            resources.lhs.setPower(0);
-//            resources.rhs.setPower(-0.5);
-//            resources.lhs.setPower(0.5);
-
-
-            //drive(0.5,-20);
-            sleep(1500);
-
-            // stop intake
-
-            // retract horizontal linear slides again
-
-            control.hsretract();
-
-            // wait a bit
-            sleep(1000);
-
-
-            //put intake up
-            control.intakeup();
-
-            // lower blocker
-
-            control.intakeoff();
-            sleep(1000);
-            control.closeclaw();
-            // move back towards the basket
-
-           // drive(1,25);
-            strafe(1, -13);
-            drive(0.75,8.5);
-            strafe(0.15, -5);
-
-
-            //repeat scoring
-
-
-
-
-
-            sleep(500);
-//          linear slide give power
-            control.lson();
-            //wait for slides to go up fully
-
-
-            sleep(2000);
-            // stop power
-            control.lsoff();
-
-            //try to stall linear slides
-            control.lsstall();
-
-
-//          arm up
-            control.armup();
-            //wait for arm to go up fully
-
-            sleep(2000);
-
-//            resources.lsRight.setPower(0);
-//            resources.lsLeft.setPower(0);
-
-            //open claw
-            control.openclaw();
-            sleep(500);
-            //arm down
-            control.armdown();
-            // linear slides down
-
-            control.lsreverse();
-            sleep(2000);
-            control.lsoff();
-
-            control.hangeron();
-            strafe(1,10);
-            drive(1,-40);
-            leftTurn(1,30);
-            drive(0.75,30);
-            sleep(1000);
-            control.hangeroff();
-
-//
             isStopRequested();
             requestOpModeStop();
-
-
-
-
-
-
-
+            stop = true;
 
         }
-
-
-
-
 
         // Drive forward 5 feet (60 inches)
 
@@ -264,7 +97,7 @@ public class EncoderAutoMovement2 extends LinearOpMode {
         leftFront.setTargetPosition(leftFront.getCurrentPosition() + targetPosition);
         rightFront.setTargetPosition(rightFront.getCurrentPosition() + targetPosition);
         leftBack.setTargetPosition(leftBack.getCurrentPosition() + targetPosition);
-        rightBack.setTargetPosition(rightBack.getCurrentPosition() + targetPosition);
+        rightBack.setTargetPosition(rightBack.getCurrentPosition() - targetPosition);
 
         // Set to RUN_TO_POSITION mode
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -299,7 +132,7 @@ public class EncoderAutoMovement2 extends LinearOpMode {
     public void strafe(double speed, double distanceInInches) {
         int targetPosition = (int) (distanceInInches * COUNTS_PER_INCH);
 
-        leftFront.setTargetPosition(leftFront.getCurrentPosition() - targetPosition);
+        leftFront.setTargetPosition(leftFront.getCurrentPosition() + targetPosition);
         rightFront.setTargetPosition(rightFront.getCurrentPosition() - targetPosition);
         leftBack.setTargetPosition(leftBack.getCurrentPosition() + targetPosition);
         rightBack.setTargetPosition(rightBack.getCurrentPosition() + targetPosition);

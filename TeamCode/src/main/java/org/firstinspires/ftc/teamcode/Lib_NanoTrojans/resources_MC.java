@@ -24,6 +24,7 @@ public class resources_MC {
     public Servo la = null;
 
     public DcMotor hanger = null;
+    public Servo backclaw = null;
 
 
 
@@ -55,6 +56,7 @@ public resources_MC(HardwareMap hardwareMap){
     ra = hardwareMap.servo.get("rightarmservo");
 
     hanger = hardwareMap.dcMotor.get("hang");
+    backclaw = hardwareMap.servo.get("backclaw");
 
 
 

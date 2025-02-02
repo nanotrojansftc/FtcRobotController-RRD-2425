@@ -31,18 +31,26 @@ public class controls_MC {
     public Servo ra = null;
     public Servo la = null;
     public DcMotor hanger = null;
+    public Servo backclaw = null;
     //private CRServo robotLift = null;
 
 
-    public controls_MC(DcMotor lsR, DcMotor lsL, CRServo lhorizontal, CRServo rhorizontal, DcMotor intake
-                       , Servo blocker, Servo ril, Servo lil, Servo claw, Servo ra, Servo la, DcMotor hanger)
+    public controls_MC(DcMotor lsR, DcMotor lsL, CRServo lhorizontal, CRServo rhorizontal, DcMotor intak
+                       , Servo blocke, Servo ri, Servo li, Servo cla, Servo r, Servo l, DcMotor hang, Servo bclaw)
     {
-        //intake= intak;
+        claw=cla;
+        intake= intak;
+        blocker = blocke;
+        ril = ri;
+        lil = li;
         lsRight=lsR;
+        ra=r;
+        la=l;
         lsLeft=lsL;
         lhs = lhorizontal;
         rhs = rhorizontal;
-        claw =claw;
+        hanger = hang;
+        backclaw =bclaw;
 
         //robotLift=robotL;
 //        dcArm =arm;
@@ -139,6 +147,14 @@ public class controls_MC {
     public void hangerreverse()
     {
         hanger.setPower(-1);
+    }
+    public void bclawopen()
+    {
+        backclaw.setPosition(1);
+    }
+    public void bclawclose()
+    {
+        backclaw.setPosition(0);
     }
 
 

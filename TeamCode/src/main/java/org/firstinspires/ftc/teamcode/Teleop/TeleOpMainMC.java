@@ -54,25 +54,19 @@ public class TeleOpMainMC extends LinearOpMode {
 
         driveControl = new DriveControl_NanoTorjan(resourcesbase.leftFront, resourcesbase.rightFront, resourcesbase.leftBack, resourcesbase.rightBack);
         control = new controls_MC(resources.lsRight, resources.lsLeft, resources.lhs, resources.rhs, resources.intake
-                , resources.blocker, resources.ril, resources.lil, resources.claw, resources.ra, resources.la, resources.hanger);
+                , resources.blocker, resources.ril, resources.lil, resources.claw, resources.ra, resources.la, resources.hanger, resources.backclaw);
 
         waitForStart();
 
-        Thread baseControlThread = new Thread(new baseControl());
+        //Thread baseControlThread = new Thread(new baseControl());
         // Thread hlsThread = new Thread(new hls());
-
         Thread lsControlThread = new Thread(new lsControl());
-
         Thread liftThread = new Thread(new lift());
         Thread armThread = new Thread(new arm());
 
         //Start 2  threads
         //baseControlThread.start();
-
-
         lsControlThread.start();
-
-
         armThread.start();
         liftThread.start();
 
@@ -87,51 +81,6 @@ public class TeleOpMainMC extends LinearOpMode {
 
     }//end of runOpMode
 
-    public class baseControl implements Runnable {
-        @Override
-        public void run() {
-            waitForStart();
-            while (!Thread.interrupted() && opModeIsActive()) {
-                driveControl.driveRobot(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
-            } //end of while loop
-
-        }//end of run
-    }//end of class baseControl
-
-    public class baseControlRR implements Runnable {
-        @Override
-        public void run() {
-
-           MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
-           waitForStart();
-
-           while (opModeIsActive()) {
-               drive.setDrivePowers(new PoseVelocity2d(
-                       new Vector2d(
-                               -gamepad1.left_stick_y,
-                               -gamepad1.left_stick_x
-                       ),
-                       -gamepad1.right_stick_x
-               ));
-
-               drive.updatePoseEstimate();
-
-               telemetry.addData("x", drive.pose.position.x);
-               telemetry.addData("y", drive.pose.position.y);
-               telemetry.addData("heading (deg)", Math.toDegrees(drive.pose.heading.toDouble()));
-               telemetry.update();
-
-               TelemetryPacket packet = new TelemetryPacket();
-               packet.fieldOverlay().setStroke("#3F51B5");
-               Drawing.drawRobot(packet.fieldOverlay(), drive.pose);
-               FtcDashboard.getInstance().sendTelemetryPacket(packet);
-
-               resources.rhs.setPower(-0.5);
-               resources.lhs.setPower(0.5);
-           }
-
-        }//end of run
-    }//end of class baseControl
 
     private class lsControl implements Runnable {
         boolean clawClosed = false;
@@ -149,16 +98,9 @@ public class TeleOpMainMC extends LinearOpMode {
                 double hlspower = gamepad2.left_stick_y;
                 resources.rhs.setPower(0.5*hlspower);
                 resources.lhs.setPower(0.5*-hlspower);
-
-
-
-
             }//end of while
         }//end of run
     }//end of thread lscontrol
-
-
-
 
 
     public class arm implements Runnable{
@@ -176,11 +118,8 @@ public class TeleOpMainMC extends LinearOpMode {
                 }
                 //
                 if (gamepad2.dpad_down){
-                    control.openclaw();
-
-
+//                    control.openclaw();
                     control.armdown();
-
                     control.hsretract();
 
                 }
@@ -193,6 +132,11 @@ public class TeleOpMainMC extends LinearOpMode {
                         control.hangerreverse();
                     }
                     else{
+                        control.hangeroff();
+                    }
+                    if(gamepad1.dpad_down){
+                        control.hangeron();
+                        sleep(1600);
                         control.hangeroff();
                     }
 
@@ -232,6 +176,13 @@ public class TeleOpMainMC extends LinearOpMode {
                     control.closeclaw();
 
 
+                }
+                if (gamepad2.x){
+                    control.bclawopen();
+
+                }
+                if (gamepad2.y){
+                    control.bclawclose();
                 }
 
 
