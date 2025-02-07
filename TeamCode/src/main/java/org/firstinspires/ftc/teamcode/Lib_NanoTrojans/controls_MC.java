@@ -109,9 +109,15 @@ public class controls_MC {
     }
     public void hsretract()
     {
-        rhs.setPower(0.1);
-        lhs.setPower(-0.1);
+        rhs.setPower(0.4);
+        lhs.setPower(-0.4);
     }
+    public void hsstall()
+    {
+        rhs.setPower(0.05);
+        lhs.setPower(-0.05);
+    }
+
     public void hsextend()
     {
         rhs.setPower(-0.3);

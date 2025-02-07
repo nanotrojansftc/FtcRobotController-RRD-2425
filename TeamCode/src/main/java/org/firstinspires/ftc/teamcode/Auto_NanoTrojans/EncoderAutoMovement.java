@@ -57,6 +57,8 @@ public class EncoderAutoMovement extends LinearOpMode {
 
         resources = new resources_MC(hardwareMap);
         resourcesbase = new resources_base_NanoTrojans(hardwareMap);
+        control = new controls_MC(resources.lsRight, resources.lsLeft, resources.lhs, resources.rhs, resources.intake
+                , resources.blocker, resources.ril, resources.lil, resources.claw, resources.ra, resources.la, resources.hanger, resources.backclaw);
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
@@ -66,7 +68,7 @@ public class EncoderAutoMovement extends LinearOpMode {
             hlsControlLockThread.start();
 
             //blocker up
-            resources.blocker.setPosition(0.58);
+//            resources.blocker.setPosition(0.58);
 
             //close claw
             //resources.claw.setPosition(0.6);
@@ -74,36 +76,81 @@ public class EncoderAutoMovement extends LinearOpMode {
 
             //***  move forward to the cage
             // Drive forward 5 feet (60 inches)
-            drive(0.75, 24);
+
+            //score
+            control.bclawclose();
+            strafe(0.75, 5);
+            drive(0.75, 5);
+            control.lson();
+            sleep(500);
+            drive(0.75,6.4);
+
+            control.lsoff();
+            sleep(400);
+            control.lsreverse();
+            sleep(150);
+
+            control.lsoff();
+            sleep(50);
+            control.bclawopen();
+            control.lsoff();
             sleep(1000);
+
+            drive(0.75,-5);
+            rightTurn(1,34);
+
+
+            strafe(0.75,35);
+//            rightTurn(1,5);
+            control.lsreverse();
+            sleep(500);
+            control.lsoff();
+
+
+
+            drive(0.5,-20);
+//            rightTurn(1,5);
+
+
+            strafe(0.5,7);
+            drive(0.5,30);
+            sleep(1000);
+
+            drive(0.5,-10);
+            sleep(1000);
+            drive(0.5,10);
+            control.bclawclose();
+
+
+            requestOpModeStop();
 
 
 
             //**   move away from the cage
-            drive(0.75,-5);
-            sleep(1000);
-
-            sleep(500);
-
-            //**   strafe to the right
-            strafe(0.75, -32);
-
-            sleep(500);
-            drive(0.75, 15);
-
-            sleep(500);
-            strafe(0.75,-8);
-
-            sleep(500);
-            drive(0.75,-40);
-
-            drive(0.75, 45);
-
-
-            strafe(0.75,-15);
-
-            drive(0.75,-45);
-            drive(0.75,40);
+//            drive(0.75,-5);
+//            sleep(1000);
+//
+//            sleep(500);
+//
+//            //**   strafe to the right
+//            strafe(0.75, -32);
+//
+//            sleep(500);
+//            drive(0.75, 15);
+//
+//            sleep(500);
+//            strafe(0.75,-8);
+//
+//            sleep(500);
+//            drive(0.75,-40);
+//
+//            drive(0.75, 45);
+//
+//
+//            strafe(0.75,-15);
+//
+//            drive(0.75,-45);
+//            drive(0.75,40);
 
             //Third Strafe
 //            strafe(0.4, -17);
@@ -119,33 +166,33 @@ public class EncoderAutoMovement extends LinearOpMode {
         }
 
 
-        resources.rhs.setPower(0.5);
-        resources.lhs.setPower(-0.5);
-
-        // Drive forward 5 feet (60 inches)
-        drive(0.75, 25);
-        sleep(2000);
-        drive(0.75,-5);
-        sleep(500);
-
-
-        strafe(0.75, -30);
-
-        sleep(500);
-        drive(0.75, 30);
-
-        sleep(500);
-        strafe(0.75,-8);
-
-        sleep(500);
-        drive(0.75,-53);
-
-        drive(0.75, 53);
-
-        strafe(0.75,-18);
-
-        drive(0.75,-50);
-        drive(0.75,10);
+//        resources.rhs.setPower(0.5);
+//        resources.lhs.setPower(-0.5);
+//
+//        // Drive forward 5 feet (60 inches)
+//        drive(0.75, 25);
+//        sleep(2000);
+//        drive(0.75,-5);
+//        sleep(500);
+//
+//
+//        strafe(0.75, -30);
+//
+//        sleep(500);
+//        drive(0.75, 30);
+//
+//        sleep(500);
+//        strafe(0.75,-8);
+//
+//        sleep(500);
+//        drive(0.75,-53);
+//
+//        drive(0.75, 53);
+//
+//        strafe(0.75,-18);
+//
+//        drive(0.75,-50);
+//        drive(0.75,10);
     }
 
     private class hlsLock implements Runnable {

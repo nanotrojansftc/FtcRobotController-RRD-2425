@@ -86,7 +86,7 @@ public class EncoderAutoMovement2 extends LinearOpMode {
         {
             //close claw
             control.closeclaw();
-            control.hsretract();
+
             //retract horizontal linear slides
 //            resources.rhs.setPower(-0.5);
 //            resources.lhs.setPower(0.5);
@@ -97,9 +97,9 @@ public class EncoderAutoMovement2 extends LinearOpMode {
             //resources.claw.setPosition(0.6);
 //          drive forward and strafe to basket
             drive(0.75,-7);
-            sleep(500);
-            strafe(0.75,-15);
-            strafe(0.1,-7);
+
+            strafe(0.75,-23);
+            strafe(0.4,-8);
 //            resources.rhs.setPower(1);
 //            resources.lhs.setPower(-1);
             sleep(500);
@@ -128,6 +128,7 @@ public class EncoderAutoMovement2 extends LinearOpMode {
             //open claw
             control.openclaw();
             sleep(1000);
+//            control.hsextend();
             //arm down
             control.armdown();
             // linear slides down
@@ -135,6 +136,7 @@ public class EncoderAutoMovement2 extends LinearOpMode {
             control.lsreverse();
             sleep(2000);
             control.lsoff();
+//            control.hsretract();
             // give power to intake
 
             control.intakehalf();
@@ -142,7 +144,7 @@ public class EncoderAutoMovement2 extends LinearOpMode {
             control.intakedown();
             //blocker up
             // strafe for adjust
-            strafe(0.75,12);
+            strafe(0.75,11);
             drive(0.5,-6.5);
 
             //push horizontal linear slides forward
@@ -175,12 +177,13 @@ public class EncoderAutoMovement2 extends LinearOpMode {
             control.intakeoff();
             sleep(1000);
             control.closeclaw();
+            control.hsstall();
             // move back towards the basket
 
            // drive(1,25);
-            strafe(1, -13);
-            drive(0.75,8.5);
-            strafe(0.15, -5);
+            strafe(1, -11);
+            drive(0.75,8);
+            strafe(0.3, -7);
 
 
             //repeat scoring
@@ -223,13 +226,13 @@ public class EncoderAutoMovement2 extends LinearOpMode {
             sleep(2000);
             control.lsoff();
 
-            control.hangeron();
-            strafe(1,10);
-            drive(1,-40);
-            leftTurn(1,30);
-            drive(0.75,30);
-            sleep(1000);
-            control.hangeroff();
+//            control.hangeron();
+//            strafe(1,10);
+//            drive(1,-30);
+//            leftTurn(1,25);
+//            drive(0.75,30);
+////            sleep(1000);
+//            control.hangeroff();
 
 //
             isStopRequested();
